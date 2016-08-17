@@ -1,0 +1,110 @@
+﻿@model UCAOrderManager.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>Product Scientific Name</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BusinessName)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContactName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContactName)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EMailID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EMailID)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Country)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Country)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IntPhoneNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IntPhoneNo)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AirportDestCity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AirportDestCity)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsApproved)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsApproved)
+            </dd>
+        </dl>
+
+        <div class="form-actions no-color">
+            @if (ViewBag.CanDelete != null && ViewBag.CanDelete == true)
+            {
+                <input type="submit" value="Delete" class="btn btn-default" />
+            }
+            else
+            {
+                <input type="submit" value="Delete" class="btn btn-default" disabled="disabled" />
+            }
+            |@Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+}

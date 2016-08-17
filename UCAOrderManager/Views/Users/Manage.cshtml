@@ -1,0 +1,44 @@
+﻿@model UCAOrderManager.Models.Users.UserLoginDetails
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Manage</h2>
+
+@using (Html.BeginForm("Manage", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>User Registration</h4>*@
+        <hr />
+        @*@Html.ValidationSummary(true)*@
+
+        @if (Model != null && Model.UserID != 0)
+        {
+            @Html.HiddenFor(model => model.UserID)
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.FullName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMailID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EMailID, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.EMailID)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Change Password", "ChangePassword")
+            </div>
+        </div>
+
+    </div>
+}

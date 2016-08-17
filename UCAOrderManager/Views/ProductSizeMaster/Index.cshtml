@@ -1,0 +1,33 @@
+﻿@model IEnumerable<UCAOrderManager.Models.Product.ProductSizeViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductSizeName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductSizeName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductSizeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductSizeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductSizeID })
+        </td>
+    </tr>
+}
+
+</table>

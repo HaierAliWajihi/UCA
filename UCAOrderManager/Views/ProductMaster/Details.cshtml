@@ -1,0 +1,89 @@
+﻿@model UCAOrderManager.Models.Product.ProductMasterListViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScientificName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScientificName)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.CommonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommonName)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Descr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descr)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.SizeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SizeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CultivationTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CultivationTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RateUplift)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RateUplift)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentStock)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

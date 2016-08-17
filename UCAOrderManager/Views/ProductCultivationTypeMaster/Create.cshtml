@@ -1,0 +1,40 @@
+﻿@model UCAOrderManager.Models.Product.ProductCultivationTypeViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@(Model == null || Model.ProductCultivationTypeID == 0? "Create" : "Edit")</h2>
+
+@using (Html.BeginForm("Create", "ProductCultivationTypeMaster")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Product Cultivation Type</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @if (Model != null && Model.ProductCultivationTypeID != 0)
+        {
+            @Html.HiddenFor(r=> r.ProductCultivationTypeID)
+        }
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductCultivationTypeName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ProductCultivationTypeName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductCultivationTypeName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

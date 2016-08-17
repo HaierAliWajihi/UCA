@@ -1,0 +1,135 @@
+﻿@model IEnumerable<UCAOrderManager.Models.Inventory.UpdateStockViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+
+    function UpdateStock(productid) {
+        var q = document.getElementById("txtquan" + productid).value;
+        document.getElementById("lblSaveStatus" + productid).innerHTML = "";
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateStock", "UpdateStock")?ProductID=' + productid + '&Quan='+q,
+            contentType: "application/json; charset=utf-8",
+            //data: { ProductID: 1 }, //, Quan : q },
+            dataType: "json",
+            success: function (result) {
+                //alert("lblSaveStatus" + productid);
+                var label = document.getElementById("lblSaveStatus" + productid);
+                label.innerHTML = result.Response;
+
+                if (result.Response == "Saved") {
+                    label.style.color = "green";
+                }
+                else
+                {
+                    label.style.color = "red";
+                }
+                //alert(result.Response);
+                //window.locationre = result.url;
+            }
+        });
+    }
+
+    function ClearSaveStatus(productid)
+    {
+        document.getElementById("lblSaveStatus" + productid).innerHTML = " ";
+    }
+</script>
+<h2>Update Stock</h2>
+@*<input type="submit" value="Save" class="btn btn-default" />*@
+<table class="table">
+    <tr>
+        @*<th>
+        @Html.DisplayNameFor(model => model.ProductCode)
+    </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ScientificName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descr)  
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CultivationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentStock)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+{
+    <tr>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.ProductCode)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ScientificName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CultivationType)
+            </td>
+            <td class="form-group">
+                @*@Html.DisplayFor(modelItem => item.CurrentStock)*@
+                <div class="col-md-10">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.TextBoxFor(model => item.CurrentStock,
+                            new
+                            {
+                                @class = "form-control",
+                                @id = "txtquan" + @item.ProductID.ToString(),
+                                @OnBlur = "UpdateStock(" + item.ProductID.ToString() + ")",
+                                @onfocus = "ClearSaveStatus(" + item.ProductID.ToString() + ")"
+                            })
+                        @Html.ValidationMessageFor(model => item.CurrentStock)
+                        @Html.Label(" ", new { @id = "lblSaveStatus" + @item.ProductID.ToString(), @style = "font-size:10px" })
+                    }
+                </div>
+            </td>
+            <td class="form-group">
+                @*@Html.DisplayFor(modelItem => item.CurrentStock)*@
+                <div class="col-md-10">
+                @using (Html.BeginForm())
+                {
+                    @Html.TextBoxFor(model => item.CurrentStock,
+                        new
+                        {
+                            @class = "form-control",
+                            @id = "txtquan" + @item.ProductID.ToString(),
+                            @OnBlur = "UpdateStock(" + item.ProductID.ToString() + ")",
+                            @onfocus = "ClearSaveStatus(" + item.ProductID.ToString() + ")"
+                        })
+                    @Html.ValidationMessageFor(model => item.CurrentStock)
+                    @Html.Label(" ", new { @id = "lblSaveStatus" + @item.ProductID.ToString(), @style = "font-size:10px" })
+                }
+                </div>
+            </td>
+            @*<td>00
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+        </td>*@
+        </tr>
+}
+</table>

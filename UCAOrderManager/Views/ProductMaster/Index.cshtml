@@ -1,0 +1,246 @@
+﻿@model IEnumerable<UCAOrderManager.Models.Product.ProductMasterListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function UpdateStock(productid) {
+        var q = document.getElementById("txtquan" + productid).value;
+        document.getElementById("lblSaveStatus" + productid).innerHTML = "";
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateStock", "ProductMaster")?ProductID=' + productid + '&Quan=' + q,
+            contentType: "application/json; charset=utf-8",
+            //data: { ProductID: 1 }, //, Quan : q },
+            dataType: "json",
+            success: function (result) {
+                //alert("lblSaveStatus" + productid);
+                var label = document.getElementById("lblSaveStatus" + productid);
+                label.innerHTML = result.Response;
+
+                if (result.Response == "Saved") {
+                    label.style.color = "green";
+                }
+                else {
+                    label.style.color = "red";
+                }
+                //alert(result.Response);
+                //window.locationre = result.url;
+            }
+        });
+    }
+
+    function ClearSaveStatus(productid) {
+        document.getElementById("lblSaveStatus" + productid).innerHTML = " ";
+    }
+
+    function UpdateRate(productid) {
+        var ru = document.getElementById("txtRate" + productid).value;
+        document.getElementById("lblSaveStatusRate" + productid).innerHTML = "";
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateRate", "ProductMaster")?ProductID=' + productid + '&Rate=' + ru,
+            contentType: "application/json; charset=utf-8",
+            //data: { ProductID: 1 }, //, Quan : q },
+            dataType: "json",
+            success: function (result) {
+                //alert("lblSaveStatus" + productid);
+                var label = document.getElementById("lblSaveStatusRate" + productid);
+                label.innerHTML = result.Response;
+
+                if (result.Response == "Saved") {
+                    label.style.color = "green";
+                }
+                else {
+                    label.style.color = "red";
+                }
+                //alert(result.Response);
+                //window.locationre = result.url;
+            }
+        });
+    }
+
+    function ClearSaveStatusRate(productid) {
+        document.getElementById("lblSaveStatusRate" + productid).innerHTML = " ";
+    }
+
+    function UpdateRateUplift(productid) {
+        var ru = document.getElementById("txtRateUplift" + productid).value;
+        document.getElementById("lblSaveStatusRateUplift" + productid).innerHTML = "";
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateRateUplift", "ProductMaster")?ProductID=' + productid + '&RateUplift=' + ru,
+            contentType: "application/json; charset=utf-8",
+            //data: { ProductID: 1 }, //, Quan : q },
+            dataType: "json",
+            success: function (result) {
+                //alert("lblSaveStatus" + productid);
+                var label = document.getElementById("lblSaveStatusRateUplift" + productid);
+                label.innerHTML = result.Response;
+
+                if (result.Response == "Saved") {
+                    label.style.color = "green";
+                }
+                else {
+                    label.style.color = "red";
+                }
+                //alert(result.Response);
+                //window.locationre = result.url;
+            }
+        });
+    }
+
+    function ClearSaveStatusRateUplift(productid) {
+        document.getElementById("lblSaveStatusRateUplift" + productid).innerHTML = " ";
+    }
+</script>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+
+    <div class="form-group container " style="float:right">
+        
+        @using (Html.BeginForm(
+            "UpdateRateUpliftAllProducts",
+            "ProductMaster",
+            FormMethod.Post, 
+            new { @id = "FormUpdateRateLiftInAllProducts", @name = "FormUpdateRateLiftInAllProducts" }))
+        {
+            @Html.Label("Rate Uplift %", new { @class = "control-label", @style = "float:left; padding-right:5px;padding-top:5px" })
+            @Html.TextBox("RateUplift", "0",
+                new
+                {
+                    @class = "form-control",
+                    @id = "txtRateUpliftAllProducts",
+                    @OnBlur = "UpdateRateUpliftAllProduct()",
+                    @style="width:100px;float:left;margin-right:5px"
+                })
+            @Html.ValidationMessage("", new { @For = "RateUpliftAllProduct" })
+            <input type="submit" value="Update" class="btn btn-default" />
+            //@Html.ValidationMessageFor(model => model.CurrentStock)
+            //@Html.Label(" ", new { @id = "lblSaveStatusRateUpliftAllProducts", @style = "font-size:10px" })
+        }
+    </div>
+</p>
+<table class="table" style="vertical-align:bottom">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScientificName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SizeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CultivationTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RateUplift)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentStock)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScientificName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommonName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SizeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CultivationTypeName)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Rate)*@
+            <div class="col-md-10">
+                @using (Html.BeginForm(null, null, FormMethod.Post,
+                    new { @id = "FormUpdateRate_" + item.ProductID.ToString(), @name = "FormUpdateRate_" + item.ProductID.ToString() }))
+                {
+                    @Html.TextBoxFor(model => item.Rate,
+                        new
+                        {
+                            @class = "form-control",
+                            @id = "txtRate" + @item.ProductID.ToString(),
+                            @OnBlur = "UpdateRate(" + item.ProductID.ToString() + ")",
+                            @onfocus = "ClearSaveStatusRate(" + item.ProductID.ToString() + ")",
+                            @Style="Width:100px"
+                        })
+                    @Html.ValidationMessageFor(model => item.CurrentStock)
+                    @Html.Label(" ", new { @id = "lblSaveStatusRate" + @item.ProductID.ToString(), @style = "font-size:10px" })
+                }
+            </div>
+        </td>
+        <td class="form-group">
+            <div class="col-md-10">
+                @using (Html.BeginForm(null, null, FormMethod.Post, 
+                    new { @id = "FormUpdateRateUplift_" + item.ProductID.ToString(), @name = "FormUpdateRateUplift_" + item.ProductID.ToString() }))
+                {
+                    @Html.TextBoxFor(model => item.RateUplift,
+                        new
+                        {
+                            @class = "form-control",
+                            @id = "txtRateUplift" + @item.ProductID.ToString(),
+                            @OnBlur = "UpdateRateUplift(" + item.ProductID.ToString() + ")",
+                            @onfocus = "ClearSaveStatusRateUplift(" + item.ProductID.ToString() + ")",
+                            @Style = "Width:100px"
+                        }) 
+                    @Html.ValidationMessageFor(model => item.CurrentStock)
+                    @Html.Label(" ", new { @id = "lblSaveStatusRateUplift" + @item.ProductID.ToString(), @style = "font-size:10px" })
+                }
+            </div>
+        </td>
+        <td class="form-group">
+            @*@Html.DisplayFor(modelItem => item.CurrentStock)*@
+            <div class="col-md-10">
+                @using (Html.BeginForm(new { @id = "FormUpdateStock_" + item.ProductID.ToString(), @name = "FormUpdateStock_" + item.ProductID.ToString() }))
+                {
+                    @Html.TextBoxFor(model => item.CurrentStock,
+                        new
+                        {
+                            @class = "form-control",
+                            @id = "txtquan" + @item.ProductID.ToString(),
+                            @OnBlur = "UpdateStock(" + item.ProductID.ToString() + ")",
+                            @onfocus = "ClearSaveStatus(" + item.ProductID.ToString() + ")",
+                            @Style = "Width:100px"
+                        })
+                    @Html.ValidationMessageFor(model => item.CurrentStock)
+                    @Html.Label(" ", new { @id = "lblSaveStatus" + @item.ProductID.ToString(), @style = "font-size:10px" })
+                }
+            </div>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+        </td>
+    </tr>
+}
+</table>

@@ -1,0 +1,101 @@
+﻿@model UCAOrderManager.Models.Product.ProductMasterViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@(Model == null || Model.ProductID == 0 ? "Create" : "Edit")</h2>
+
+@using (Html.BeginForm("Create", "ProductMaster")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Product</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @if (Model != null && Model.ProductID != 0)
+        {
+            @Html.HiddenFor(r=> r.ProductID)
+        }
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ProductCode, new { @class = "form-control", @readonly="readonly" })
+                @Html.ValidationMessageFor(model => model.ProductCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ScientificNameID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ScientificNameID, UCAOrderManager.DAL.Product.ProductScientificNameDAL.GetSelectList(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ScientificNameID)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CommonNameID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CommonNameID, UCAOrderManager.DAL.Product.ProductCommonNameDAL.GetSelectList(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CommonNameID)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descr, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Descr, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Descr)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SizeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SizeID, UCAOrderManager.DAL.Product.ProductSizeDAL.GetSelectList(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SizeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CultivationTypeID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CultivationTypeID, UCAOrderManager.DAL.Product.ProductCultivationTypeDAL.GetSelectList(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CultivationTypeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Rate, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Rate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RateUplift, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.RateUplift, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RateUplift)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CurrentStock, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CurrentStock, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CurrentStock)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

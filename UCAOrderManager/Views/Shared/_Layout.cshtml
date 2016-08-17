@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Ultra Coral Australia</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Ultra Coral", "Index", "Home", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (UCAOrderManager.Common.Props.LoginUser != null && UCAOrderManager.Common.Props.LoginUser.Role == UCAOrderManager.Models.Users.eUserRoleID.Admin)
+                    {
+                    //<li>@Html.ActionLink("Update Stock", "Index", "UpdateStock")</li>
+                    <li>@Html.ActionLink("Product", "Index", "ProductMaster")</li>
+                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Product Sub Masters <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                              <li>@Html.ActionLink("Scientific Names", "Index", "ProductScientificNameMaster")</li>
+                              <li>@Html.ActionLink("Common Names", "Index", "ProductCommonNameMaster")</li>
+                              <li>@Html.ActionLink("Product Size", "Index", "ProductSizeMaster")</li>
+                              <li>@Html.ActionLink("Cultivation Type", "Index", "ProductCultivationTypeMaster")</li>
+                            @*<li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Dropdown Submenu Link 5.1</a></li>
+                                <li><a href="#">Dropdown Submenu Link 5.2</a></li>
+                                <li><a href="#">Dropdown Submenu Link 5.3</a></li>
+                              </ul>
+                            </li>*@
+                          </ul>
+                        </li>
+                    <li>@Html.ActionLink("Create User", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    @*<li>@Html.ActionLink("Approve User", "ApproveUser", "Users")</li>*@
+                    <li>@Html.ActionLink("Company Profile", "Manage", "Company")</li>                        
+                    }
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+            <div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        @*<footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
