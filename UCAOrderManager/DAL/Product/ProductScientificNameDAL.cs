@@ -15,6 +15,7 @@ namespace UCAOrderManager.DAL.Product
             using(dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
                 return (from r in db.tblProductScientificNames
+                        orderby r.ProductScientificName
                         select new ProductScientificNameViewModel()
                         {
                             ProductScientificNameID = r.ProductScientificNameID,
@@ -196,6 +197,7 @@ namespace UCAOrderManager.DAL.Product
             {
                 var list = (from r in db.tblProductScientificNames
                         where r.IsAlive
+                        orderby r.ProductScientificName
                         select new ProductScientificNameSelectListViewModel()
                         {
                             ProductScientificNameID = r.ProductScientificNameID,

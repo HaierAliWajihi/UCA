@@ -15,6 +15,7 @@ namespace UCAOrderManager.DAL.Product
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
                 return (from r in db.tblProductCommonNames
+                        orderby r.ProductCommonName
                         select new ProductCommonNameViewModel()
                         {
                             ProductCommonNameID = r.ProductCommonNameID,
@@ -192,6 +193,7 @@ namespace UCAOrderManager.DAL.Product
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
                 var list = (from r in db.tblProductCommonNames
+                            orderby r.ProductCommonName
                         select new ProductCommonNameSelectListViewModel()
                         {
                             ProductCommonNameID = r.ProductCommonNameID,

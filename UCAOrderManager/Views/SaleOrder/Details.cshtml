@@ -1,0 +1,225 @@
+﻿@model UCAOrderManager.Models.SaleOrder.SaleOrderViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sale Order</h4>
+	<hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SODate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SODate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SONo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SONo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IntPhoneNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IntPhoneNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMailContact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMailContact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AirportDestCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirportDestCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstDelDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstDelDate)
+        </dd>
+    </dl>
+    
+    <div class="form-group">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td colspan="8" style="text-align:center">
+                        <h2>Stock List</h2>
+                    </td>
+                </tr>
+                <tr style="border-bottom:solid;border-bottom-width:thin;">
+                    <th>
+                        @Html.DisplayName("Scientific Name")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Common Name")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Description")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Size")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Cultivation Type")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Price ($USD)")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Stock")
+                    </th>
+
+                    <th>
+                        @Html.DisplayName("Order Qty")
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (int i = 0; i < Model.Products.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].ScientificName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].CommonName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].Descr)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].SizeName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].CultivationTypeName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].Rate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].CurrentStock)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(item => item.Products[i].OrderQty, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot class="h4">
+                <tr>
+                    <td></td>
+
+                    <td></td>
+
+                    <td></td>
+
+                    <td></td>
+
+                    <td></td>
+
+                    <td>
+                    </td>
+
+                    <td>
+                        Total
+                    </td>
+
+                    <td>
+                        @Model.Products.Sum(x => x.OrderQty)
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SaleOrderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

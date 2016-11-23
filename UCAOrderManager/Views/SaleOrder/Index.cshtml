@@ -1,0 +1,84 @@
+﻿@model IEnumerable<UCAOrderManager.Models.SaleOrder.SaleOrderListViewModel>
+
+@{
+    ViewBag.Title = "Sale Order";
+}
+
+<h2>Sale Order</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SODate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SONo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmt)
+        </th>
+
+        @if (UCAOrderManager.Common.Props.LoginUser != null && (UCAOrderManager.Common.Props.LoginUser.Role == UCAOrderManager.Models.Users.eUserRoleID.Admin))
+        { 
+            <th></th>
+        }
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.SODate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.SONo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.BusinessName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.TotalQty)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.TotalAmt)
+        </td>
+
+        @if (UCAOrderManager.Common.Props.LoginUser != null && (UCAOrderManager.Common.Props.LoginUser.Role == UCAOrderManager.Models.Users.eUserRoleID.Admin))
+        { 
+            <td>
+                @if (item.SaleInvoiceID == null || item.SaleInvoiceID == 0)
+                {
+                    @Html.ActionLink("Generate Invoice", "CreateFromOrder", "SaleInvoice", new { SaleOrderID = item.SaleOrderID }, null) 
+                }
+            </td>
+        }
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SaleOrderID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SaleOrderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SaleOrderID })
+        </td>
+    </tr>
+}
+</table>

@@ -18,10 +18,14 @@
             @Html.DisplayNameFor(model => model.ContactName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            Address
+            @*@Html.DisplayNameFor(model => model.Address1)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postcode)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Country)
@@ -51,19 +55,43 @@
             @Html.DisplayFor(model => item.City)
         </td>
         <td>
+            @Html.DisplayFor(model => item.Postcode)
+        </td>
+        <td>
             @Html.DisplayFor(model => item.Country)
         </td>
         <td>
             @Html.DisplayFor(model => item.EMailID)
         </td>
         <td>
-            @Html.DisplayFor(model => item.IsApproved)
+            @if (item.IsApproved == null)
+            {
+                using (Html.BeginForm("ApproveCustomer", "Customer", routeValues : new { id = item.UserID, Approved = true}, method: FormMethod.Post))
+                {
+                    <input type="submit" value="Approve" class="btn btn-default" />
+                }
+                using (Html.BeginForm("ApproveCustomer", "Customer", routeValues: new { id = item.UserID, Approved = false }, method: FormMethod.Post))
+                {
+                    <input type="submit" value="Reject" class="btn btn-default" />
+                }
+            }
+            else
+            {
+                if (item.IsApproved ?? false)
+                {
+                    <span>Approved</span>
+                }
+                else
+                {
+                    <span>Rejected</span>
+                }
+            }
         </td>
 
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
         </td>
     </tr>
 }

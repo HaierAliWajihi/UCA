@@ -27,6 +27,10 @@ namespace UCAOrderManager.DAL
         public Nullable<int> rcuid { get; set; }
         public Nullable<System.DateTime> redt { get; set; }
         public Nullable<int> reuid { get; set; }
+        public string noreplyEmailID { get; set; }
+        public string noreplyEmailIDPassword { get; set; }
+        public string noreplyOutgoingSMTPServerName { get; set; }
+        public int noreplyOutgoingSMTPPort { get; set; }
     
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }

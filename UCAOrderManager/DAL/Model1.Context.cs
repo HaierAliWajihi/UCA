@@ -26,21 +26,24 @@ namespace UCAOrderManager.DAL
         }
     
         public virtual DbSet<tblCompany> tblCompanies { get; set; }
-        public virtual DbSet<tblInvoice> tblInvoices { get; set; }
-        public virtual DbSet<tblInvoiceProductDetail> tblInvoiceProductDetails { get; set; }
         public virtual DbSet<tblProductCommonName> tblProductCommonNames { get; set; }
         public virtual DbSet<tblProductCultivationType> tblProductCultivationTypes { get; set; }
         public virtual DbSet<tblProductOpeningStock> tblProductOpeningStocks { get; set; }
         public virtual DbSet<tblProductRate> tblProductRates { get; set; }
         public virtual DbSet<tblProductScientificName> tblProductScientificNames { get; set; }
-        public virtual DbSet<tblProductSize> tblProductSizes { get; set; }
+        public virtual DbSet<tblSaleInvoiceProductDetail> tblSaleInvoiceProductDetails { get; set; }
         public virtual DbSet<tblSaleOrder> tblSaleOrders { get; set; }
         public virtual DbSet<tblSaleOrderProductDetail> tblSaleOrderProductDetails { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblUpdateInventoryLog> tblUpdateInventoryLogs { get; set; }
         public virtual DbSet<tblUserRole> tblUserRoles { get; set; }
         public virtual DbSet<tblUsersLoginLog> tblUsersLoginLogs { get; set; }
-        public virtual DbSet<tblUpdateInventoryLog> tblUpdateInventoryLogs { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblSaleInvoice> tblSaleInvoices { get; set; }
+        public virtual DbSet<tblSaleInvoiceStatu> tblSaleInvoiceStatus { get; set; }
+        public virtual DbSet<tblProductSize> tblProductSizes { get; set; }
         public virtual DbSet<tblProduct> tblProducts { get; set; }
-        public virtual DbSet<tblCustomer> tblCustomers { get; set; }
+        public virtual DbSet<tblBoxList> tblBoxLists { get; set; }
+        public virtual DbSet<tblBoxListBoxDetail> tblBoxListBoxDetails { get; set; }
+        public virtual DbSet<tblBoxListProductDetail> tblBoxListProductDetails { get; set; }
     }
 }

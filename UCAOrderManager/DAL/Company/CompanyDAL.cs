@@ -108,7 +108,11 @@ namespace UCAOrderManager.DAL.Company
                     FaxNo = SaveModel.FaxNo,
                     EMailID = SaveModel.EMailID, 
                     Website = SaveModel.Website,
-                    Slogan = SaveModel.Slogan
+                    Slogan = SaveModel.Slogan,
+                    noreplyEmailID = SaveModel.noreplyEmailID,
+                    noreplyPassword = SaveModel.noreplyEmailIDPassword,
+                    noreplyOutgoingSMTPServerName = SaveModel.noreplyOutgoingSMTPServerName,
+                    noreplyOutgoingSMTPPortNo = SaveModel.noreplyOutgoingSMTPPort
                 };
             }
         }

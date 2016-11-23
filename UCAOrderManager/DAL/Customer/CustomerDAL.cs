@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using UCAOrderManager.Models.Customer;
 using UCAOrderManager.Models.Template;
 
@@ -13,16 +14,22 @@ namespace UCAOrderManager.DAL.Customer
         {
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
-                return (from r in db.tblCustomers
+                int CustomerRoleID = (int)Models.Users.eUserRoleID.Customer;
+
+                return (from r in db.tblUsers
+                        where r.UserRoleID == CustomerRoleID
+                        orderby r.ContactName, r.BusinessName
                         select new CustomerListViewModel()
                         {
-                            CustomerID = r.CustomerID,
+                            UserID = r.UserID,
                             BusinessName = r.BusinessName,
                             ContactName = r.ContactName,
-                            EMailID = r.EMailID,
+                            EMailID = r.EmailID,
                             Address = r.Address,
                             City = r.City,
-                            Country = r.Country
+                            Postcode = r.PostCode,
+                            Country = r.Country,
+                            IsApproved = r.IsApproved
                         }).ToList();
             }
         }
@@ -31,7 +38,7 @@ namespace UCAOrderManager.DAL.Customer
         {
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
-                var r = db.tblCustomers.Find(ID);
+                var r = db.tblUsers.Find(ID);
                 if (r == null)
                 {
                     return null;
@@ -39,15 +46,17 @@ namespace UCAOrderManager.DAL.Customer
 
                 return new CustomerViewModel()
                 {
-                    CustomerID = r.CustomerID,
+                    UserID = r.UserID,
                     BusinessName = r.BusinessName,
                     ContactName = r.ContactName,
-                    EMailID = r.EMailID,
+                    EMailID = r.EmailID,
                     Address = r.Address,
                     City = r.City,
+                    Postcode = r.PostCode,
                     Country = r.Country,
                     IntPhoneNo = r.IntPhoneNo,
-                    AirportDestCity = r.AirportDestCity
+                    AirportDestCity = r.AirportDestCity,
+                    IsApproved = r.IsApproved
                 };
             }
         }
@@ -56,18 +65,20 @@ namespace UCAOrderManager.DAL.Customer
         {
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
-                return (from r in db.tblCustomers
-                        where r.CustomerID == ID
+                return (from r in db.tblUsers
+                        where r.UserID == ID
 
                         select new CustomerViewModel()
                         {
-                            CustomerID = r.CustomerID,
+                            UserID = r.UserID,
                             BusinessName = r.BusinessName,
                             ContactName = r.ContactName,
-                            EMailID = r.EMailID,
+                            EMailID = r.EmailID,
                             Address = r.Address,
                             City = r.City,
-                            Country = r.Country
+                            Postcode = r.PostCode,
+                            Country = r.Country,
+                            IsApproved = r.IsApproved
                         }).FirstOrDefault();
             }
         }
@@ -76,7 +87,19 @@ namespace UCAOrderManager.DAL.Customer
         {
             SavingResult res = new SavingResult();
 
-            if (ViewModel.BusinessName == "")
+            if (ViewModel == null)
+            {
+                res.ExecutionResult = eExecutionResult.ValidationError;
+                res.ValidationError = "information not passed to save.";
+                return res;
+            }
+            if (ViewModel.EMailID == "")
+            {
+                res.ExecutionResult = eExecutionResult.ValidationError;
+                res.ValidationError = "Email id is required";
+                return res;
+            }
+            else if (ViewModel.BusinessName == "")
             {
                 res.ExecutionResult = eExecutionResult.ValidationError;
                 res.ValidationError = "Business Name is required";
@@ -85,26 +108,37 @@ namespace UCAOrderManager.DAL.Customer
 
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
-                if (CheckDuplicate(ViewModel.CustomerID, ViewModel.BusinessName))
+                if (CheckDuplicateEmailID(ViewModel.UserID, ViewModel.EMailID, db))
+                {
+                    res.ExecutionResult = eExecutionResult.ValidationError;
+                    res.ValidationError = "entered email id is already registered.";
+                    return res;
+                }
+                else if (CheckDuplicate(ViewModel.UserID, ViewModel.BusinessName, db))
                 {
                     res.ExecutionResult = eExecutionResult.ValidationError;
                     res.ValidationError = "Can not accept duplicate values. The business name is already exists.";
                     return res;
                 }
 
-                tblCustomer SaveModel = null;
-                if (ViewModel.CustomerID == 0)
+                tblUser SaveModel = null;
+                if (ViewModel.UserID == 0)
                 {
-                    SaveModel = new tblCustomer()
+                    SaveModel = new tblUser()
                     {
-                        rcdt = DateTime.Now,
-                        rcuid = Common.Props.LoginUser.UserID
+                        Password = ViewModel.Password ?? "",
+                        UserRoleID = (int)Models.Users.eUserRoleID.Customer,
+                        rcdt = DateTime.Now
                     };
-                    db.tblCustomers.Add(SaveModel);
+                    if (Common.Props.LoginUser != null)
+                    {
+                        SaveModel.rcuid = Common.Props.LoginUser.UserID;
+                    }
+                    db.tblUsers.Add(SaveModel);
                 }
                 else
                 {
-                    SaveModel = db.tblCustomers.FirstOrDefault(r => r.CustomerID == ViewModel.CustomerID);
+                    SaveModel = db.tblUsers.FirstOrDefault(r => r.UserID == ViewModel.UserID);
                     if (SaveModel == null)
                     {
                         res.ExecutionResult = eExecutionResult.ValidationError;
@@ -115,23 +149,24 @@ namespace UCAOrderManager.DAL.Customer
                     SaveModel.redt = DateTime.Now;
                     SaveModel.reuid = Common.Props.LoginUser.UserID;
 
-                    db.tblCustomers.Attach(SaveModel);
+                    db.tblUsers.Attach(SaveModel);
                     db.Entry(SaveModel).State = System.Data.Entity.EntityState.Modified;
                 }
 
                 SaveModel.BusinessName = ViewModel.BusinessName;
-                SaveModel.ContactName = ViewModel.ContactName;
-                SaveModel.EMailID = ViewModel.EMailID;
-                SaveModel.Address = ViewModel.Address;
-                SaveModel.City = ViewModel.City;
-                SaveModel.Country = ViewModel.Country;
-                SaveModel.IntPhoneNo = ViewModel.IntPhoneNo;
-                SaveModel.AirportDestCity = ViewModel.AirportDestCity;
+                SaveModel.ContactName = ViewModel.ContactName ?? "";
+                SaveModel.EmailID = ViewModel.EMailID;
+                SaveModel.Address = ViewModel.Address ?? "";
+                SaveModel.City = ViewModel.City ?? "";
+                SaveModel.PostCode = ViewModel.Postcode ?? "";
+                SaveModel.Country = ViewModel.Country ?? "";
+                SaveModel.IntPhoneNo = ViewModel.IntPhoneNo ?? "";
+                SaveModel.AirportDestCity = ViewModel.AirportDestCity ?? "";
                 //--
                 try
                 {
                     db.SaveChanges();
-                    res.PrimeKeyValue = SaveModel.CustomerID;
+                    res.PrimeKeyValue = SaveModel.UserID;
                     res.ExecutionResult = eExecutionResult.CommitedSucessfuly;
                 }
                 catch (Exception ex)
@@ -164,7 +199,7 @@ namespace UCAOrderManager.DAL.Customer
                 IsValidForDelete = true
             };
 
-            //if (db.tblCustomers.FirstOrDefault(r => r.SizeID == ID) != null)
+            //if (db.tblUsers.FirstOrDefault(r => r.SizeID == ID) != null)
             //{
             //    res.IsValidForDelete = false;
             //    res.ValidationMessage = "Already selected in Customers.";
@@ -179,7 +214,7 @@ namespace UCAOrderManager.DAL.Customer
 
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
-                var RecordToDelete = db.tblCustomers.Find(ID);
+                var RecordToDelete = db.tblUsers.Find(ID);
 
                 if (RecordToDelete == null)
                 {
@@ -188,7 +223,7 @@ namespace UCAOrderManager.DAL.Customer
                     return res;
                 }
 
-                db.tblCustomers.Remove(RecordToDelete);
+                db.tblUsers.Remove(RecordToDelete);
                 //--
                 try
                 {
@@ -215,8 +250,73 @@ namespace UCAOrderManager.DAL.Customer
         }
         public bool CheckDuplicate(int ID, string BusinessName, dbUltraCoralEntities db)
         {
-            return db.tblCustomers.FirstOrDefault(r => r.CustomerID != ID && r.BusinessName == BusinessName) != null;
+            return db.tblUsers.FirstOrDefault(r => r.UserID != ID && r.BusinessName == BusinessName) != null;
         }
 
+        public bool CheckDuplicateEmailID(int ID, string EMailID)
+        {
+            using (DAL.dbUltraCoralEntities db = new dbUltraCoralEntities())
+            {
+                return CheckDuplicateEmailID(ID, EMailID, db);
+            }
+        }
+        public bool CheckDuplicateEmailID(int ID, string EMailID, dbUltraCoralEntities db)
+        {
+            return db.tblUsers.FirstOrDefault(r => r.UserID != ID && r.EmailID == EMailID) != null;
+        }
+
+        public SavingResult ApproveUser(int UserID, bool Approval)
+        {
+            SavingResult res = new Models.Template.SavingResult();
+            using (dbUltraCoralEntities db = new DAL.dbUltraCoralEntities())
+            {
+                tblUser SaveModel = db.tblUsers.Find(UserID);
+                if(SaveModel == null)
+                {
+                    res.ExecutionResult = eExecutionResult.ValidationError;
+                    res.ValidationError = "Invalid request. User has been deleted or moved.";
+                    return res;
+                }
+
+                SaveModel.IsApproved = Approval;
+                SaveModel.redt = DateTime.Now;
+                SaveModel.reuid = (Common.Props.LoginUser != null? (int?)Common.Props.LoginUser.UserID : null);
+                db.tblUsers.Attach(SaveModel);
+                db.Entry(SaveModel).State = System.Data.Entity.EntityState.Modified;
+
+                //--
+                try
+                {
+                    db.SaveChanges();
+                    res.PrimeKeyValue = SaveModel.UserID;
+                    res.ExecutionResult = eExecutionResult.CommitedSucessfuly;
+                }
+                catch (Exception ex)
+                {
+                    ex = Common.Functions.FindFinalError(ex);
+
+                    res.ExecutionResult = eExecutionResult.ErrorWhileExecuting;
+                    res.Exception = ex;
+                }
+            }
+            return res;
+        }
+
+        public static SelectList GetSelectionList()
+        {
+            using (dbUltraCoralEntities db = new dbUltraCoralEntities())
+            {
+                int CustomerRoleID = (int)Models.Users.eUserRoleID.Customer;
+
+                return new SelectList((from r in db.tblUsers
+                                       where r.UserRoleID == CustomerRoleID
+                                       orderby r.ContactName, r.BusinessName
+                                       select new
+                                       {
+                                           CustomerID = r.UserID,
+                                           BusinessName = r.BusinessName,
+                                       }).ToList(), "CustomerID", "BusinessName", null);
+            }
+        }
     }
 }

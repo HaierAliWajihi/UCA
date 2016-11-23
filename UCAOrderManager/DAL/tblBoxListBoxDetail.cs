@@ -12,16 +12,19 @@ namespace UCAOrderManager.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class tblInvoiceProductDetail
+    public partial class tblBoxListBoxDetail
     {
-        public int InvoiceProductDetailID { get; set; }
-        public int InvoiceID { get; set; }
-        public int ProductID { get; set; }
-        public decimal Quan { get; set; }
-        public decimal Rate { get; set; }
-        public decimal Amt { get; set; }
+        public tblBoxListBoxDetail()
+        {
+            this.tblBoxListProductDetails = new HashSet<tblBoxListProductDetail>();
+        }
     
-        public virtual tblInvoice tblInvoice { get; set; }
-        public virtual tblProduct tblProduct { get; set; }
+        public int BoxListBoxDetailID { get; set; }
+        public int BoxListID { get; set; }
+        public int BoxNo { get; set; }
+        public int TotalQuan { get; set; }
+    
+        public virtual tblBoxList tblBoxList { get; set; }
+        public virtual ICollection<tblBoxListProductDetail> tblBoxListProductDetails { get; set; }
     }
 }

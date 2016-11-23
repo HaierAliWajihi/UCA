@@ -6,6 +6,57 @@
     <title>@ViewBag.Title - Ultra Coral Australia</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    
+
+    <style>
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu > a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #cccccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover > a:after {
+            border-left-color: #ffffff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,34 +73,38 @@
                 <ul class="nav navbar-nav">
                     @if (UCAOrderManager.Common.Props.LoginUser != null && UCAOrderManager.Common.Props.LoginUser.Role == UCAOrderManager.Models.Users.eUserRoleID.Admin)
                     {
-                    //<li>@Html.ActionLink("Update Stock", "Index", "UpdateStock")</li>
-                    <li>@Html.ActionLink("Product", "Index", "ProductMaster")</li>
-                        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Product Sub Masters <b class="caret"></b></a>
-                          <ul class="dropdown-menu">
-                              <li>@Html.ActionLink("Scientific Names", "Index", "ProductScientificNameMaster")</li>
-                              <li>@Html.ActionLink("Common Names", "Index", "ProductCommonNameMaster")</li>
-                              <li>@Html.ActionLink("Product Size", "Index", "ProductSizeMaster")</li>
-                              <li>@Html.ActionLink("Cultivation Type", "Index", "ProductCultivationTypeMaster")</li>
-                            @*<li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Dropdown Submenu Link 5.1</a></li>
-                                <li><a href="#">Dropdown Submenu Link 5.2</a></li>
-                                <li><a href="#">Dropdown Submenu Link 5.3</a></li>
-                              </ul>
-                            </li>*@
-                          </ul>
+                        <li>@Html.ActionLink("Sale", "Index", "SaleInvoice")</li>
+                        @*<li>@Html.ActionLink("Sale Order", "Index", "SaleOrder")</li>*@
+                        <li>@Html.ActionLink("Customer", "Index", "Customer")</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Product<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Stock Admin", "Index", "ProductMaster")</li>
+                                <li class="dropdown dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Product Sub Masters</a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Scientific Names", "Index", "ProductScientificNameMaster")</li>
+                                        <li>@Html.ActionLink("Common Names", "Index", "ProductCommonNameMaster")</li>
+                                        <li>@Html.ActionLink("Product Size", "Index", "ProductSizeMaster")</li>
+                                        <li>@Html.ActionLink("Cultivation Type", "Index", "ProductCultivationTypeMaster")</li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
-                    <li>@Html.ActionLink("Create User", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    @*<li>@Html.ActionLink("Approve User", "ApproveUser", "Users")</li>*@
-                    <li>@Html.ActionLink("Company Profile", "Manage", "Company")</li>                        
+                        <li>@Html.ActionLink("Create User", "Register", "Users", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        @*<li>@Html.ActionLink("Approve User", "ApproveUser", "Users")</li>*@
+                        <li>@Html.ActionLink("Company Profile", "Manage", "Company")</li>
+                    }
+                    else if (UCAOrderManager.Common.Props.LoginUser != null &&
+                        UCAOrderManager.Common.Props.LoginUser.Role == UCAOrderManager.Models.Users.eUserRoleID.Customer)
+                    {
+                        <li>@Html.ActionLink("Stock List", "Create", "SaleOrder")</li>
+                        <li>@Html.ActionLink("Sale Order", "Index", "SaleOrder")</li>
                     }
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
-            </div>
-            <div>
-                
             </div>
         </div>
     </div>

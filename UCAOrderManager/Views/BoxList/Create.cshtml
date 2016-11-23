@@ -1,0 +1,298 @@
+﻿@model UCAOrderManager.Models.SaleInvoice.BoxListViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<script type="text/javascript">
+
+    //document.addEventListener('DOMContentLoaded', function () {
+
+    //    var txt = document.getElementById("BusinessName");
+    //    if(txt.value == null || txt.value == 0)
+    //    {
+    //        UpdateCustomerInfo();
+    //    }
+    //}, false);
+
+    @*function UpdateCustomerInfo() {
+        var CustomerID = document.getElementById("cmbCustomer").value;
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("GetCustomerDetails", "Customer")?id=' + CustomerID,
+            contentType: "application/json; charset=utf-8",
+            //data: { ProductID: 1 }, //, Quan : q },
+            dataType: "json",
+            success: function (result)
+            {
+                if (result.Response != "Bad request" && result.Response != "Not authenticated" && result.Response != "Not authorized")
+                {
+                    var txt = document.getElementById("BusinessName");
+                    txt.value = result["BusinessName"];
+
+                    txt = document.getElementById("ContactName");
+                    txt.value = result["ContactName"];
+
+                    txt = document.getElementById("Address");
+                    txt.value = result["Address"];
+
+                    txt = document.getElementById("City");
+                    txt.value = result["City"];
+
+                    txt = document.getElementById("Postcode");
+                    txt.value = result["Postcode"];
+
+                    txt = document.getElementById("Country");
+                    txt.value = result["Country"];
+
+                    txt = document.getElementById("IntPhoneNo");
+                    txt.value = result["IntPhoneNo"];
+
+                    txt = document.getElementById("EMailContact");
+                    txt.value = result["EMailID"];
+
+                    txt = document.getElementById("AirportDestCity");
+                    txt.value = result["AirportDestCity"];
+                }
+                else
+                {
+                    alert(result.Response);
+                }
+            },
+            error: function (xhr, textStatus, error)
+            {
+                alert(error);
+            }
+        });
+    }
+
+    function UpdateAmt(id)
+    {
+        var Rate = document.getElementById("Rate" + id).value;
+        var Qty = document.getElementById("Qty" + id).value;
+        txt = document.getElementById("Amt" + id);
+        txt.value = Rate * Qty;
+
+        UpdateTotal();
+    }
+
+    function UpdateTotal()
+    {
+        var PCount = document.getElementById("ProductCount").value;
+        var GAmt = 0;
+        var TQty = 0;
+        for (i = 0; i < PCount; i++)
+        {
+            TQty = TQty + parseFloat(document.getElementById("Qty" + i).value);
+            GAmt = GAmt + parseFloat(document.getElementById("Amt" + i).value);
+        }
+        document.getElementById("TotalQuan").value = TQty;
+        document.getElementById("GAmt").value = GAmt;
+
+        UpdatePayableAmt();
+    }
+
+    function UpdatePayableAmt()
+    {
+        var GAmt = parseFloat(document.getElementById("GAmt").value);
+        var TF = parseFloat(document.getElementById("TotalFreight").value);
+        var PC = parseFloat(document.getElementById("PreviousCredit").value);
+
+        document.getElementById("TotalPayableAmt").value = GAmt + TF - PC;
+    }
+
+    function UpdateTotalFrieght()
+    {
+        var v1 = parseFloat(document.getElementById("DomesticFreightCharges").value);
+        var v2 = parseFloat(document.getElementById("BoxCharges").value);
+        var v3 = parseFloat(document.getElementById("IntFreightCharges").value);
+        var v4 = parseFloat(document.getElementById("TTFee").value);
+
+        document.getElementById("TotalFreight").value = v1 + v2 + v3 + v4;
+        UpdatePayableAmt();
+    }*@
+</script>
+
+<h2>@(Model == null || Model.BoxListID == 0 ? "Create" : "Edit")</h2>
+
+@using (Html.BeginForm("Create", "BoxList", FormMethod.Post, new { id = "BoxList", name = "BoxList" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Box List</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(r => r.BoxListID, new { @id = "BoxListID" })
+        @Html.HiddenFor(r => r.SaleInvoiceID, new { @id = "SaleInvoiceID" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control", @id = "ContactName", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.ContactName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BusinessName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BusinessName, new { @class = "form-control", @id = "BusinessName", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.BusinessName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @id = "Address", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @id = "City", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Postcode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", @id = "Postcode", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Postcode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Country, new { @class = "form-control", @id = "Country", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Country)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IntPhoneNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.IntPhoneNo, new { @class = "form-control", @id = "IntPhoneNo", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.IntPhoneNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMailContact, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EMailContact, new { @class = "form-control", @id = "EMailContact", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AirportDestCity, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.AirportDestCity, new { @class = "form-control", @id = "AirportDestCity", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.AirportDestCity)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArrivalDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ArrivalDate, "{0:MM'/'dd'/'yyyy}", new { @class = "form-control", @id = "ArrivalDate", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.ArrivalDate)
+            </div>
+        </div>
+
+        @Html.Hidden("ProductCount", Model.BoxListDetails.Count)
+
+        <div class="form-group">
+            <table>
+                <tbody>
+                    @for (int i = 0; i < Model.BoxListDetails.Count; i++)
+                    { 
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(item => item.BoxListDetails[i].BoxListBoxDetailID)
+
+                            <div class="h4" style="text-align:right">
+                                @Html.DisplayNameFor(model => model.BoxListDetails[i].BoxNo)
+                                @Html.DisplayFor(model => model.BoxListDetails[i].BoxNo, new { @class = "form-control" })
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                    <tr style="border-bottom:solid;border-bottom-width:thin;">
+
+                                        <th>
+                                            @Html.DisplayName("Description")
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayName("Quantity")
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @for (int pi = 0; pi < Model.BoxListDetails[i].Products.Count; pi++)
+                                    {
+                                    <tr>
+                                        <td>
+                                            @Html.HiddenFor(item => item.BoxListDetails[i].Products[pi].BoxListProductDetailID)
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    @Html.DropDownListFor(model => model.BoxListDetails[i].Products[pi].ScientificNameID, 
+                                                        UCAOrderManager.DAL.Product.ProductScientificNameDAL.GetSelectList(), new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.BoxListDetails[i].Products[pi].ScientificNameID)
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(item => item.BoxListDetails[i].Products[pi].Quan, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.BoxListDetails[i].Products[pi].Quan)
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+
+                                <tfoot class="h4">
+
+                                    <tr>
+                                        <td>
+                                            Total
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(item => Model.BoxListDetails[i].TotalQuan, new { @class = "form-control", @readonly = "@readonly", @id = "TotalQuan" })
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tfoot>
+                            </table>
+
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

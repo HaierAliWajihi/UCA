@@ -1,0 +1,43 @@
+﻿@model UCAOrderManager.Models.SaleInvoice.SaleInvoiceViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4>Sale Order</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-actions no-color">
+            @if (ViewBag.CanDelete != null && ViewBag.CanDelete == true)
+            {
+                <input type="submit" value="Delete" class="btn btn-default" />
+            }
+            else
+            {
+                <input type="submit" value="Delete" class="btn btn-default" disabled="disabled" />
+            }
+        </div>
+
+        @Html.Partial("_Details", Model)
+
+        <div class="form-actions no-color">
+            @if (ViewBag.CanDelete != null && ViewBag.CanDelete == true)
+            {
+                <input type="submit" value="Delete" class="btn btn-default" />
+            }
+            else
+            {
+                <input type="submit" value="Delete" class="btn btn-default" disabled="disabled" />
+            }
+            |@Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+}

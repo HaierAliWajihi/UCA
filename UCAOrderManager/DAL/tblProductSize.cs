@@ -21,6 +21,7 @@ namespace UCAOrderManager.DAL
     
         public int ProductSizeID { get; set; }
         public string ProductSizeName { get; set; }
+        public Nullable<bool> QuanReq { get; set; }
         public Nullable<System.DateTime> rcdt { get; set; }
         public Nullable<int> rcuid { get; set; }
         public Nullable<System.DateTime> redt { get; set; }

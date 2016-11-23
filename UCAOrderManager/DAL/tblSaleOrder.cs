@@ -16,7 +16,6 @@ namespace UCAOrderManager.DAL
     {
         public tblSaleOrder()
         {
-            this.tblInvoices = new HashSet<tblInvoice>();
             this.tblSaleOrderProductDetails = new HashSet<tblSaleOrderProductDetail>();
         }
     
@@ -24,19 +23,28 @@ namespace UCAOrderManager.DAL
         public System.DateTime SODate { get; set; }
         public int SONo { get; set; }
         public int CustomerID { get; set; }
-        public string AirportDest { get; set; }
-        public string EstDelDate { get; set; }
+        public string BusinessName { get; set; }
+        public string ContactName { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Postcode { get; set; }
+        public string Country { get; set; }
+        public string EmailContact { get; set; }
+        public string IntPhoneNo { get; set; }
+        public string AirportDestCity { get; set; }
+        public Nullable<System.DateTime> EstDelDate { get; set; }
         public decimal TotalQuan { get; set; }
         public decimal TotalAmt { get; set; }
         public Nullable<System.DateTime> rcdt { get; set; }
         public Nullable<int> rcuid { get; set; }
         public Nullable<System.DateTime> redt { get; set; }
         public Nullable<int> reuid { get; set; }
+        public Nullable<int> SaleInvoiceID { get; set; }
     
-        public virtual ICollection<tblInvoice> tblInvoices { get; set; }
+        public virtual ICollection<tblSaleOrderProductDetail> tblSaleOrderProductDetails { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
-        public virtual ICollection<tblSaleOrderProductDetail> tblSaleOrderProductDetails { get; set; }
-        public virtual tblCustomer tblCustomer { get; set; }
+        public virtual tblUser tblUser2 { get; set; }
+        public virtual tblSaleInvoice tblSaleInvoice { get; set; }
     }
 }

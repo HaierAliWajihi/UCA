@@ -18,8 +18,6 @@ namespace UCAOrderManager.DAL
         {
             this.tblCompanies = new HashSet<tblCompany>();
             this.tblCompanies1 = new HashSet<tblCompany>();
-            this.tblInvoices = new HashSet<tblInvoice>();
-            this.tblInvoices1 = new HashSet<tblInvoice>();
             this.tblProductCommonNames = new HashSet<tblProductCommonName>();
             this.tblProductCommonNames1 = new HashSet<tblProductCommonName>();
             this.tblProductOpeningStocks = new HashSet<tblProductOpeningStock>();
@@ -28,33 +26,46 @@ namespace UCAOrderManager.DAL
             this.tblProductRates1 = new HashSet<tblProductRate>();
             this.tblProductScientificNames = new HashSet<tblProductScientificName>();
             this.tblProductScientificNames1 = new HashSet<tblProductScientificName>();
-            this.tblProductSizes = new HashSet<tblProductSize>();
-            this.tblProductSizes1 = new HashSet<tblProductSize>();
             this.tblSaleOrders = new HashSet<tblSaleOrder>();
             this.tblSaleOrders1 = new HashSet<tblSaleOrder>();
+            this.tblSaleOrders2 = new HashSet<tblSaleOrder>();
+            this.tblUpdateInventoryLogs = new HashSet<tblUpdateInventoryLog>();
             this.tblUser1 = new HashSet<tblUser>();
             this.tblUser11 = new HashSet<tblUser>();
             this.tblUsersLoginLogs = new HashSet<tblUsersLoginLog>();
-            this.tblUpdateInventoryLogs = new HashSet<tblUpdateInventoryLog>();
+            this.tblSaleInvoices = new HashSet<tblSaleInvoice>();
+            this.tblSaleInvoices1 = new HashSet<tblSaleInvoice>();
+            this.tblSaleInvoices2 = new HashSet<tblSaleInvoice>();
+            this.tblProductSizes = new HashSet<tblProductSize>();
+            this.tblProductSizes1 = new HashSet<tblProductSize>();
             this.tblProducts = new HashSet<tblProduct>();
             this.tblProducts1 = new HashSet<tblProduct>();
+            this.tblBoxLists = new HashSet<tblBoxList>();
+            this.tblBoxLists1 = new HashSet<tblBoxList>();
         }
     
         public int UserID { get; set; }
         public string FullName { get; set; }
         public string EmailID { get; set; }
         public string Password { get; set; }
-        public bool IsApproved { get; set; }
-        public Nullable<int> UserRoleID { get; set; }
+        public Nullable<bool> IsApproved { get; set; }
+        public int UserRoleID { get; set; }
         public Nullable<System.DateTime> rcdt { get; set; }
         public Nullable<int> rcuid { get; set; }
         public Nullable<System.DateTime> redt { get; set; }
         public Nullable<int> reuid { get; set; }
+        public string BusinessName { get; set; }
+        public string ContactName { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string PostCode { get; set; }
+        public string Country { get; set; }
+        public string IntPhoneNo { get; set; }
+        public string AirportDestCity { get; set; }
+        public bool IsEMailVerified { get; set; }
     
         public virtual ICollection<tblCompany> tblCompanies { get; set; }
         public virtual ICollection<tblCompany> tblCompanies1 { get; set; }
-        public virtual ICollection<tblInvoice> tblInvoices { get; set; }
-        public virtual ICollection<tblInvoice> tblInvoices1 { get; set; }
         public virtual ICollection<tblProductCommonName> tblProductCommonNames { get; set; }
         public virtual ICollection<tblProductCommonName> tblProductCommonNames1 { get; set; }
         public virtual ICollection<tblProductOpeningStock> tblProductOpeningStocks { get; set; }
@@ -63,18 +74,24 @@ namespace UCAOrderManager.DAL
         public virtual ICollection<tblProductRate> tblProductRates1 { get; set; }
         public virtual ICollection<tblProductScientificName> tblProductScientificNames { get; set; }
         public virtual ICollection<tblProductScientificName> tblProductScientificNames1 { get; set; }
-        public virtual ICollection<tblProductSize> tblProductSizes { get; set; }
-        public virtual ICollection<tblProductSize> tblProductSizes1 { get; set; }
         public virtual ICollection<tblSaleOrder> tblSaleOrders { get; set; }
         public virtual ICollection<tblSaleOrder> tblSaleOrders1 { get; set; }
+        public virtual ICollection<tblSaleOrder> tblSaleOrders2 { get; set; }
+        public virtual ICollection<tblUpdateInventoryLog> tblUpdateInventoryLogs { get; set; }
         public virtual ICollection<tblUser> tblUser1 { get; set; }
         public virtual tblUser tblUser2 { get; set; }
         public virtual ICollection<tblUser> tblUser11 { get; set; }
         public virtual tblUser tblUser3 { get; set; }
         public virtual tblUserRole tblUserRole { get; set; }
         public virtual ICollection<tblUsersLoginLog> tblUsersLoginLogs { get; set; }
-        public virtual ICollection<tblUpdateInventoryLog> tblUpdateInventoryLogs { get; set; }
+        public virtual ICollection<tblSaleInvoice> tblSaleInvoices { get; set; }
+        public virtual ICollection<tblSaleInvoice> tblSaleInvoices1 { get; set; }
+        public virtual ICollection<tblSaleInvoice> tblSaleInvoices2 { get; set; }
+        public virtual ICollection<tblProductSize> tblProductSizes { get; set; }
+        public virtual ICollection<tblProductSize> tblProductSizes1 { get; set; }
         public virtual ICollection<tblProduct> tblProducts { get; set; }
         public virtual ICollection<tblProduct> tblProducts1 { get; set; }
+        public virtual ICollection<tblBoxList> tblBoxLists { get; set; }
+        public virtual ICollection<tblBoxList> tblBoxLists1 { get; set; }
     }
 }

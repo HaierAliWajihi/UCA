@@ -23,6 +23,7 @@ namespace UCAOrderManager.DAL.Product
                         join ct in db.tblProductCultivationTypes on r.CultivationTypeID equals ct.ProductCultivationTypeID into joinct
                         from rct in joinct.DefaultIfEmpty()
 
+                        orderby rsn.ProductScientificName, rcn.ProductCommonName, r.Descr, rsize.ProductSizeName, rct.ProductCultivationTypeName
                         select new ProductMasterListViewModel()
                         {
                             ProductID = r.ProductID,
@@ -34,7 +35,8 @@ namespace UCAOrderManager.DAL.Product
                             CultivationTypeName = (rct != null ? rct.ProductCultivationTypeName : ""),
                             Rate = r.Rate,
                             RateUplift = r.RateUpliftPerc,
-                            CurrentStock = r.CurrentStock
+                            CurrentStock = r.CurrentStock,
+                            IsQtyReq = rsize.QuanReq ?? false
                         }).ToList();
             }
         }
@@ -481,6 +483,23 @@ namespace UCAOrderManager.DAL.Product
                 }
             }
             return res;
+        }
+
+        public bool IsQuantityRequired(int ProductID)
+        {
+            using(dbUltraCoralEntities db = new dbUltraCoralEntities())
+            {
+                tblProduct p = db.tblProducts.Find(ProductID);
+                if (p != null)
+                {
+                    tblProductSize ps = db.tblProductSizes.Find(p.SizeID);
+                    if(ps != null)
+                    {
+                        return ps.QuanReq ?? false;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

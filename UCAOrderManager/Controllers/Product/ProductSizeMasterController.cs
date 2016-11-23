@@ -68,9 +68,8 @@ namespace UCAOrderManager.Controllers.Product
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductSizeID,ProductSizeName")] Models.Product.ProductSizeViewModel ViewModel)
+        public ActionResult Create([Bind(Include = "ProductSizeID,ProductSizeName,QuanReq")] Models.Product.ProductSizeViewModel ViewModel)
         {
-
             if (Common.Props.LoginUser == null)
             {
                 return RedirectToAction("Login", "Users", new { ReturnUrl = "/ProductSizeMaster/Create/" });
@@ -80,7 +79,6 @@ namespace UCAOrderManager.Controllers.Product
                 return RedirectToAction("PermissionDenied", "Home");
             }
 
-
             if (ModelState.IsValid)
             {
                 if (Common.Functions.SetAfterSaveResult(ModelState, DALObj.SaveRecord(ViewModel)))
@@ -88,7 +86,6 @@ namespace UCAOrderManager.Controllers.Product
                     return RedirectToAction("Index");
                 }
             }
-
             return View(ViewModel);
         }
 
@@ -155,7 +152,6 @@ namespace UCAOrderManager.Controllers.Product
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-
             if (Common.Props.LoginUser == null)
             {
                 return RedirectToAction("Login", "Users", new { ReturnUrl = "/ProductSizeMaster/Delete/" });

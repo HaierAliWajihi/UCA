@@ -16,6 +16,9 @@ namespace UCAOrderManager.Models.Product
         [StringLength(50, ErrorMessage = "{0} can be max {1} chars long.")]
         [Required]
         public string ProductSizeName { get; set; }
+
+        [DisplayName("Quantity Required")]
+        public bool QuanReq { get; set; }
     }
 
     public class ProductSizeSelectListViewModel

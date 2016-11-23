@@ -23,6 +23,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +57,18 @@
     <Reference Include="Microsoft.CSharp">
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>True</Private>
     </Reference>
@@ -65,6 +78,7 @@
     <Reference Include="System.Data.DataSetExtensions">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing">
       <Private>True</Private>
     </Reference>
@@ -122,6 +136,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>True</Private>
     </Reference>
@@ -170,6 +185,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CommonFunctions.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\Props.cs" />
     <Compile Include="Controllers\Company\CompanyController.cs" />
@@ -181,6 +197,10 @@
     <Compile Include="Controllers\Product\ProductMasterController.cs" />
     <Compile Include="Controllers\Product\ProductScientificNameMasterController.cs" />
     <Compile Include="Controllers\Product\ProductSizeMasterController.cs" />
+    <Compile Include="Controllers\Report\ReportController.cs" />
+    <Compile Include="Controllers\SaleInvoice\BoxListController.cs" />
+    <Compile Include="Controllers\SaleInvoice\SaleInvoiceController.cs" />
+    <Compile Include="Controllers\SaleOrder\SaleOrderController.cs" />
     <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="DAL\Company\CompanyDAL.cs" />
     <Compile Include="DAL\Customer\CustomerDAL.cs" />
@@ -204,16 +224,21 @@
     <Compile Include="DAL\Product\ProductCultivationTypeDAL.cs" />
     <Compile Include="DAL\Product\ProductMasterDAL.cs" />
     <Compile Include="DAL\Product\ProductSizeDAL.cs" />
+    <Compile Include="DAL\SaleInvoice\BoxListDAL.cs" />
+    <Compile Include="DAL\SaleInvoice\SaleInvoiceDAL.cs" />
+    <Compile Include="DAL\SaleInvoice\SaleInvoiceStatusDAL.cs" />
+    <Compile Include="DAL\SaleOrder\SaleOrderDAL.cs" />
+    <Compile Include="DAL\Product\ProductScientificNameDAL.cs" />
+    <Compile Include="DAL\tblBoxList.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tblBoxListBoxDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tblBoxListProductDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\tblCompany.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tblCustomer.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tblInvoice.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tblInvoiceProductDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\tblProduct.cs">
@@ -237,6 +262,15 @@
     <Compile Include="DAL\tblProductSize.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\tblSaleInvoice.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tblSaleInvoiceProductDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tblSaleInvoiceStatu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\tblSaleOrder.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -255,7 +289,6 @@
     <Compile Include="DAL\tblUsersLoginLog.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Product\ProductScientificNameDAL.cs" />
     <Compile Include="DAL\Users\UserDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -263,15 +296,47 @@
     <Compile Include="Models\Company\CompanyViewModel.cs" />
     <Compile Include="Models\Customer\CustomerViewModel.cs" />
     <Compile Include="Models\Inventory\UpdateStockViewModel.cs" />
+    <Compile Include="Models\SaleInvoice\BoxListViewModel.cs" />
+    <Compile Include="Models\SaleInvoice\SaleInvoiceStatusViewModel.cs" />
+    <Compile Include="Models\SaleInvoice\SaleInvoiceViewModel.cs" />
     <Compile Include="Models\Product\ProductCommonNameViewModel.cs" />
     <Compile Include="Models\Product\ProductCultivationTypeViewModel.cs" />
     <Compile Include="Models\Product\ProductMasterViewModel.cs" />
     <Compile Include="Models\Product\ProductScientificNameViewModel.cs" />
     <Compile Include="Models\Product\ProductSizeViewModel.cs" />
+    <Compile Include="Models\SaleOrder\SaleOrderViewModel.cs" />
     <Compile Include="Models\Template\SavingViewModels.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />
     <Compile Include="Models\ValidationAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\AppReportViewer.aspx.cs">
+      <DependentUpon>AppReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\AppReportViewer.aspx.designer.cs">
+      <DependentUpon>AppReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Sale\SaleInvoiceShipping.aspx.cs">
+      <DependentUpon>SaleInvoiceShipping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\Sale\SaleInvoiceShipping.aspx.designer.cs">
+      <DependentUpon>SaleInvoiceShipping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Sale\SaleInvoice.aspx.cs">
+      <DependentUpon>SaleInvoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\Sale\SaleInvoice.aspx.designer.cs">
+      <DependentUpon>SaleInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SERLabel\SERLabel.aspx.cs">
+      <DependentUpon>SERLabel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\SERLabel\SERLabel.aspx.designer.cs">
+      <DependentUpon>SERLabel.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -280,6 +345,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Report\AppReportViewer.aspx" />
+    <Content Include="Report\Sale\SaleInvoiceShipping.aspx" />
+    <Content Include="Report\Sale\SaleInvoice.aspx" />
+    <Content Include="Report\SERLabel\SERLabel.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="DAL\Model1.edmx">
@@ -365,8 +434,26 @@
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\ApproveCustomerConfirm.cshtml" />
+    <Content Include="Views\Customer\RegistrationConfirm.cshtml" />
+    <Content Include="Views\Customer\ApproveCustomer.cshtml" />
+    <Content Include="Views\SaleOrder\Create.cshtml" />
+    <Content Include="Views\SaleOrder\Delete.cshtml" />
+    <Content Include="Views\SaleOrder\Details.cshtml" />
+    <Content Include="Views\SaleOrder\Index.cshtml" />
+    <Content Include="Views\SaleInvoice\Create.cshtml" />
+    <Content Include="Views\SaleInvoice\Delete.cshtml" />
+    <Content Include="Views\SaleInvoice\Details.cshtml" />
+    <Content Include="Views\SaleInvoice\Index.cshtml" />
+    <Content Include="Views\SaleInvoice\_Details.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\SaleInvoice\SaleInvoicePrintSERLabel.cshtml" />
+    <Content Include="Views\SaleInvoice\SaleInvoicePrintShipping.cshtml" />
+    <Content Include="Views\SaleInvoice\SaleInvoicePrint.cshtml" />
+    <Content Include="Views\BoxList\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -374,7 +461,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UCAReports\UCAReports.csproj">
+      <Project>{11c0360a-40aa-4c91-a6b4-fc6ce919c163}</Project>
+      <Name>UCAReports</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

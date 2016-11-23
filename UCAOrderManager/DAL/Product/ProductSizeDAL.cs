@@ -15,10 +15,12 @@ namespace UCAOrderManager.DAL.Product
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
                 return (from r in db.tblProductSizes
+                        orderby r.ProductSizeName
                         select new ProductSizeViewModel()
                         {
                             ProductSizeID = r.ProductSizeID,
-                            ProductSizeName = r.ProductSizeName
+                            ProductSizeName = r.ProductSizeName,
+                            QuanReq = r.QuanReq ?? false
                         }).ToList();
             }
         }
@@ -37,7 +39,8 @@ namespace UCAOrderManager.DAL.Product
                     return new ProductSizeViewModel()
                     {
                         ProductSizeID = r.ProductSizeID,
-                        ProductSizeName = r.ProductSizeName
+                        ProductSizeName = r.ProductSizeName,
+                        QuanReq = r.QuanReq ?? false
                     };
                 }
             }
@@ -91,7 +94,7 @@ namespace UCAOrderManager.DAL.Product
                 }
 
                 SaveModel.ProductSizeName = ViewModel.ProductSizeName;
-
+                SaveModel.QuanReq = ViewModel.QuanReq;
                 //--
                 try
                 {
@@ -191,6 +194,7 @@ namespace UCAOrderManager.DAL.Product
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
                 var list = (from r in db.tblProductSizes
+                            orderby r.ProductSizeName
                         select new ProductSizeSelectListViewModel()
                         {
                             ProductSizeID = r.ProductSizeID,

@@ -1,0 +1,20 @@
+﻿@model UCAOrderManager.Models.SaleInvoice.SaleInvoiceViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sale Order</h4>
+	<hr />
+
+</div>
+
+@Html.Partial("_Details", Model)
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SaleInvoiceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

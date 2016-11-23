@@ -14,6 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ProductSizeName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuanReq)
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +24,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.ProductSizeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuanReq)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProductSizeID }) |

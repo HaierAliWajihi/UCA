@@ -1,0 +1,335 @@
+﻿@model UCAOrderManager.Models.SaleOrder.SaleOrderViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<script type="text/javascript">
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        UpdateCustomerInfo();
+    }, false);
+
+    function UpdateCustomerInfo() {
+        var CustomerID = document.getElementById("cmbCustomer").value;
+
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("GetCustomerDetails", "Customer")?id=' + CustomerID,
+            contentType: "application/json; charset=utf-8",
+            //data: { ProductID: 1 }, //, Quan : q },
+            dataType: "json",
+            success: function (result)
+            {
+                if (result.Response != "Bad request" && result.Response != "Not authenticated" && result.Response != "Not authorized")
+                {
+                    var txt = document.getElementById("BusinessName");
+                    txt.value = result["BusinessName"];
+
+                    txt = document.getElementById("ContactName");
+                    txt.value = result["ContactName"];
+
+                    txt = document.getElementById("Address");
+                    txt.value = result["Address"];
+
+                    txt = document.getElementById("City");
+                    txt.value = result["City"];
+
+                    txt = document.getElementById("Postcode");
+                    txt.value = result["Postcode"];
+
+                    txt = document.getElementById("Country");
+                    txt.value = result["Country"];
+
+                    txt = document.getElementById("IntPhoneNo");
+                    txt.value = result["IntPhoneNo"];
+
+                    txt = document.getElementById("EMailContact");
+                    txt.value = result["EMailID"];
+
+                    txt = document.getElementById("AirportDestCity");
+                    txt.value = result["AirportDestCity"];
+                }
+                else
+                {
+                    alert(result.Response);
+                }
+            },
+            error: function (xhr, textStatus, error)
+            {
+                alert(error);
+            }
+        });
+    }
+
+    function ClearSaveStatus(productid)
+    {
+        document.getElementById("lblSaveStatus" + productid).innerHTML = " ";
+    }
+</script>
+
+<h2>@(Model == null || Model.SaleOrderID == 0? "Create" : "Edit")</h2>
+
+@using (Html.BeginForm("Create", "SaleOrder")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Sale Order</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @if (Model != null && Model.SaleOrderID != 0)
+        {
+            @Html.HiddenFor(r=> r.SaleOrderID)
+        }
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.SODate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.SODate, "{0:MM'/'dd'/'yyyy}", new { @class = "form-control"})
+                @Html.ValidationMessageFor(model => model.SODate )
+            </div>
+        </div>
+
+        @if (Model != null && Model.SaleOrderID != 0)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.SONo, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.SONo, new { @class = "form-control", @readonly="readonly"})
+                    @Html.ValidationMessageFor(model => model.SONo)
+                </div>
+            </div>
+        }
+
+        @if (UCAOrderManager.Common.Props.LoginUser != null && UCAOrderManager.Common.Props.LoginUser.Role == UCAOrderManager.Models.Users.eUserRoleID.Admin)
+        {
+            <div class="form-group">
+                @Html.Label("Customer", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CustomerID, UCAOrderManager.DAL.Customer.CustomerDAL.GetSelectionList(), new { @class = "form-control", @id="cmbCustomer", @onchange= "UpdateCustomerInfo()"})
+                    @Html.ValidationMessageFor(model => model.CustomerID)
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.CustomerID)
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BusinessName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BusinessName, new { @class = "form-control", @id= "BusinessName" })
+                @Html.ValidationMessageFor(model => model.BusinessName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control", @id = "ContactName" })
+                @Html.ValidationMessageFor(model => model.ContactName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @id = "Address" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @id = "City" })
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Postcode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control", @id = "Postcode" })
+                @Html.ValidationMessageFor(model => model.Postcode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Country, new { @class = "form-control", @id = "Country" })
+                @Html.ValidationMessageFor(model => model.Country)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IntPhoneNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.IntPhoneNo, new { @class = "form-control", @id = "IntPhoneNo" })
+                @Html.ValidationMessageFor(model => model.IntPhoneNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMailContact, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EMailContact, new { @class = "form-control", @id = "EMailContact" })
+                @Html.ValidationMessageFor(model => model.EMailContact)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AirportDestCity, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.AirportDestCity, new { @class = "form-control", @id = "AirportDestCity" })
+                @Html.ValidationMessageFor(model => model.AirportDestCity)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstDelDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EstDelDate, "{0:MM'/'dd'/'yyyy}", new { @class = "form-control", @id = "EstDelDate" })
+                @Html.ValidationMessageFor(model => model.EstDelDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <table class="table">
+                <thead>
+                    <tr >
+                        <td  colspan="8" style="text-align:center">
+                            <h2>Stock List</h2>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom:solid;border-bottom-width:thin;">
+                        <th>
+                            @Html.DisplayName("Scientific Name")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Common Name")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Description")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Size")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Cultivation Type")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Price ($USD)")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Stock")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Order Qty")
+                        </th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @*@foreach (UCAOrderManager.Models.SaleOrder.SaleOrderProducDetailViewModel Item in Model.Products)*@
+                    @for(int i = 0; i < Model.Products.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(item => item.Products[i].ProductID)
+                                @Html.HiddenFor(item => item.Products[i].ScientificName)
+                                @Html.DisplayFor(item => item.Products[i].ScientificName)
+                            </td>
+
+                            <td >
+                                @Html.HiddenFor(item => item.Products[i].CommonName)
+                                @Html.DisplayFor(item => item.Products[i].CommonName)
+                            </td>
+
+                            <td>
+                                @Html.HiddenFor(item => item.Products[i].Descr)
+                                @Html.DisplayFor(item => item.Products[i].Descr)
+                            </td>
+
+                            <td>
+                                @Html.HiddenFor(item => item.Products[i].SizeName)
+                                @Html.DisplayFor(item => item.Products[i].SizeName)
+                            </td>
+
+                            <td>
+                                @Html.HiddenFor(item => item.Products[i].CultivationTypeName)
+                                @Html.DisplayFor(item => item.Products[i].CultivationTypeName)
+                            </td>
+
+                            <td>
+                                @Html.HiddenFor(item => item.Products[i].Rate)
+                                @Html.DisplayFor(item => item.Products[i].Rate)
+                            </td>
+
+                            <td>
+                                @Html.HiddenFor(item => item.Products[i].CurrentStock)
+                                @Html.DisplayFor(item => item.Products[i].CurrentStock)
+                            </td>
+
+                            <td>
+                                @Html.TextBoxFor(item => item.Products[i].OrderQty, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(item => item.Products[i].OrderQty)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot class="h4">
+                    <tr>
+                        <td>
+                        </td>
+
+                        <td>
+                        </td>
+                        
+                        <td>
+                        </td>
+
+                        <td>
+                        </td>
+
+                        <td>
+                        </td>
+
+                        <td>
+                            Total
+                        </td>
+
+                        <td>
+                            @Model.Products.Sum(x => x.CurrentStock)
+                        </td>
+
+                        <td>
+                            @*@Model.Products.Sum(x => x.OrderQty)*@
+                        </td>
+                    </tr>
+                </tfoot>
+        </table>
+    </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -39,21 +39,36 @@ namespace UCAOrderManager.Common
             }
         }
 
-        static Models.Company.CompanyViewModel CompanyProfile_;
+        //static Models.Company.CompanyViewModel CompanyProfile_;
         public static Models.Company.CompanyViewModel CompanyProfile
         {
             get
             {
-                if(CompanyProfile_ == null)
+                var SesVar = HttpContext.Current.Session["CompanyProfile"];
+
+                if (SesVar == null)
                 {
                     DAL.Company.CompanyDAL CompanyDALObj = new DAL.Company.CompanyDAL();
-                    CompanyProfile_ = CompanyDALObj.GetFirstCompanyDetail();
+                    Models.Company.CompanyViewModel temp = CompanyDALObj.GetFirstCompanyDetail();
+                    SesVar = temp;
+                    return temp;
                 }
-                return CompanyProfile_;
+                return (Models.Company.CompanyViewModel)SesVar;
             }
             set
             {
-                CompanyProfile_ = value;
+                HttpContext.Current.Session["CompanyProfile"] = value;
+            }
+        }
+
+        public static string CurrentDomainName
+        {
+            get
+            {
+                return HttpContext.Current.Request.Url.Scheme +
+                    System.Uri.SchemeDelimiter + HttpContext.Current.Request.Url.Host +
+                    (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" +
+                    HttpContext.Current.Request.Url.Port);
             }
         }
     }

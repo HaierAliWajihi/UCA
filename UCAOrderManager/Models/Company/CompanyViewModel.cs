@@ -45,5 +45,17 @@ namespace UCAOrderManager.Models.Company
 
         [DisplayName("Logo")]
         public Image Logo { get; set; }
+
+        [Browsable(false)]
+        public string noreplyEmailID { get; set; }
+
+        [Browsable(false)]
+        public string noreplyPassword { get; set; }
+
+        [Browsable(false)]
+        public string noreplyOutgoingSMTPServerName { get; set; }
+
+        [Browsable(false)]
+        public int noreplyOutgoingSMTPPortNo { get; set; }
     }
 }

@@ -1,0 +1,98 @@
+﻿@model UCAOrderManager.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Customer Registration Confirmation";
+}
+<style type="text/css">
+</style>
+
+<h2>Your account has been registered successfully.</h2>
+
+
+<div>
+	<hr />
+    <p>
+        Dear customer, your account has been registered with your email id <b>@Model.EMailID</b> with us. We will check and approve your account. You will be informed by email when your account will be activated. Thank you for registering with us. The following is details you filled, please check.
+    </p>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMailID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMailID)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postcode)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IntPhoneNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IntPhoneNo)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AirportDestCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirportDestCity)
+        </dd>
+    </dl>
+</div>

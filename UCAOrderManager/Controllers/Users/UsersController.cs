@@ -51,9 +51,13 @@ namespace UCAOrderManager.Controllers.Users
                 UserLoginDetails User = UserDALObj.MatchUserCredentials(ViewModel.EmailID, ViewModel.Password); //Membership.ValidateUser(model.UserName, model.Password);
                 if (User != null)
                 {
-                    if (!User.IsApproved)
+                    if (User.IsApproved == null)
                     {
                         ModelState.AddModelError("", "Your account approval is still pending. Please contact to your admin for instant approval.");
+                    }
+                    else if(!User.IsApproved.Value)
+                    {
+                        ModelState.AddModelError("", "Your account hase been rejected. Please contact customer support for more information.");
                     }
                     else
                     {

@@ -19,7 +19,7 @@ namespace UCAOrderManager.DAL
         public int ProductID { get; set; }
         public decimal Rate { get; set; }
         public decimal Quan { get; set; }
-        public decimal Price { get; set; }
+        public decimal Amt { get; set; }
     
         public virtual tblSaleOrder tblSaleOrder { get; set; }
         public virtual tblProduct tblProduct { get; set; }

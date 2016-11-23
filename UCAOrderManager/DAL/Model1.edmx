@@ -5,6 +5,36 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="dbUltraCoralModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBoxList">
+          <Key>
+            <PropertyRef Name="BoxListID" />
+          </Key>
+          <Property Name="BoxListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleInvoiceID" Type="int" Nullable="false" />
+          <Property Name="rcdt" Type="datetime" />
+          <Property Name="rcuid" Type="int" />
+          <Property Name="redt" Type="datetime" />
+          <Property Name="reuid" Type="int" />
+        </EntityType>
+        <EntityType Name="tblBoxListBoxDetail">
+          <Key>
+            <PropertyRef Name="BoxListBoxDetailID" />
+          </Key>
+          <Property Name="BoxListBoxDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BoxListID" Type="int" Nullable="false" />
+          <Property Name="BoxNo" Type="int" Nullable="false" />
+          <Property Name="TotalQuan" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblBoxListProductDetail">
+          <Key>
+            <PropertyRef Name="BoxListProductDetailID" />
+          </Key>
+          <Property Name="BoxListProductDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BoxListID" Type="int" Nullable="false" />
+          <Property Name="BoxListBoxDetailID" Type="int" />
+          <Property Name="ProductScientificNameID" Type="int" Nullable="false" />
+          <Property Name="Quan" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblCompany">
           <Key>
             <PropertyRef Name="CompanyID" />
@@ -22,64 +52,10 @@
           <Property Name="rcuid" Type="int" />
           <Property Name="redt" Type="datetime" />
           <Property Name="reuid" Type="int" />
-        </EntityType>
-        <EntityType Name="tblCustomer">
-          <Key>
-            <PropertyRef Name="CustomerID" />
-          </Key>
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="BusinessName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ContactName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="EMailID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Address" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IntPhoneNo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AirportDestCity" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
-          <Property Name="rcdt" Type="datetime" />
-          <Property Name="rcuid" Type="int" />
-          <Property Name="redt" Type="datetime" />
-          <Property Name="reuid" Type="int" />
-        </EntityType>
-        <EntityType Name="tblInvoice">
-          <Key>
-            <PropertyRef Name="InvoiceID" />
-          </Key>
-          <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InvoiceDate" Type="date" Nullable="false" />
-          <Property Name="InvoiceNo" Type="int" Nullable="false" />
-          <Property Name="SaleOrderID" Type="int" Nullable="false" />
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="AirportDestCity" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="EstDelDate" Type="date" Nullable="false" />
-          <Property Name="FreightAWBNo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FreightFlight1" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FreightFlight2" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="TotalQuan" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="TotalGAmt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="DomesticFreightCharges" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="BoxCharges" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="IntFreightCharges" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="TTFee" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="TotalFreight" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="PreviousCredit" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="TotalPayableAmt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="rcdt" Type="datetime" />
-          <Property Name="rcuid" Type="int" />
-          <Property Name="redt" Type="datetime" />
-          <Property Name="reuid" Type="int" />
-        </EntityType>
-        <EntityType Name="tblInvoiceProductDetail">
-          <Key>
-            <PropertyRef Name="InvoiceProductDetailID" />
-          </Key>
-          <Property Name="InvoiceProductDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InvoiceID" Type="int" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="Quan" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Rate" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Amt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="noreplyEmailID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="noreplyEmailIDPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="noreplyOutgoingSMTPServerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="noreplyOutgoingSMTPPort" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblProduct">
           <Key>
@@ -168,10 +144,70 @@
           </Key>
           <Property Name="ProductSizeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductSizeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="QuanReq" Type="bit" />
           <Property Name="rcdt" Type="datetime" />
           <Property Name="rcuid" Type="int" />
           <Property Name="redt" Type="datetime" />
           <Property Name="reuid" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSaleInvoice">
+          <Key>
+            <PropertyRef Name="SaleInvoiceID" />
+          </Key>
+          <Property Name="SaleInvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceDate" Type="date" Nullable="false" />
+          <Property Name="InvoiceNo" Type="int" Nullable="false" />
+          <Property Name="SaleInvoiceStatusID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="BusinessName" Type="varchar" MaxLength="50" />
+          <Property Name="ContactName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Postcode" Type="varchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="IntPhoneNo" Type="varchar" MaxLength="50" />
+          <Property Name="EmailContact" Type="varchar" MaxLength="50" />
+          <Property Name="AirportDestCity" Type="varchar" MaxLength="50" />
+          <Property Name="ShippingDate" Type="date" />
+          <Property Name="ArrivalDate" Type="date" />
+          <Property Name="DomesticFlight" Type="varchar" MaxLength="50" />
+          <Property Name="InternationalFlight" Type="varchar" MaxLength="50" />
+          <Property Name="TotalQuan" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="TotalGAmt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="EstBoxes" Type="int" Nullable="false" />
+          <Property Name="BoxCharges" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="DomesticFreightCharges" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="IntFreightCharges" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="TTFee" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="TotalFreight" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PreviousCredit" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="TotalPayableAmt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="rcdt" Type="datetime" />
+          <Property Name="rcuid" Type="int" />
+          <Property Name="redt" Type="datetime" />
+          <Property Name="reuid" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSaleInvoiceProductDetail">
+          <Key>
+            <PropertyRef Name="SaleInvoiceProductDetailID" />
+          </Key>
+          <Property Name="SaleInvoiceProductDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleInvoiceID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quan" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Amt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="rcdt" Type="datetime" />
+          <Property Name="rcuid" Type="int" />
+          <Property Name="redt" Type="datetime" />
+          <Property Name="reuid" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSaleInvoiceStatus">
+          <Key>
+            <PropertyRef Name="SaleInvoiceStatusID" />
+          </Key>
+          <Property Name="SaleInvoiceStatusID" Type="int" Nullable="false" />
+          <Property Name="SaleInvoiceStatusName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tblSaleOrder">
           <Key>
@@ -181,14 +217,23 @@
           <Property Name="SODate" Type="date" Nullable="false" />
           <Property Name="SONo" Type="int" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="AirportDest" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="EstDelDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BusinessName" Type="varchar" MaxLength="50" />
+          <Property Name="ContactName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Postcode" Type="varchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="EmailContact" Type="varchar" MaxLength="50" />
+          <Property Name="IntPhoneNo" Type="varchar" MaxLength="50" />
+          <Property Name="AirportDestCity" Type="varchar" MaxLength="50" />
+          <Property Name="EstDelDate" Type="datetime" />
           <Property Name="TotalQuan" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="TotalAmt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="rcdt" Type="datetime" />
           <Property Name="rcuid" Type="int" />
           <Property Name="redt" Type="datetime" />
           <Property Name="reuid" Type="int" />
+          <Property Name="SaleInvoiceID" Type="int" />
         </EntityType>
         <EntityType Name="tblSaleOrderProductDetail">
           <Key>
@@ -199,7 +244,7 @@
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="Rate" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Quan" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Amt" Type="decimal" Precision="12" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="tblUpdateInventoryLog">
           <Key>
@@ -216,15 +261,24 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FullName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
           <Property Name="EmailID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
-          <Property Name="UserRoleID" Type="int" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="UserRoleID" Type="int" Nullable="false" />
           <Property Name="rcdt" Type="datetime" />
           <Property Name="rcuid" Type="int" />
           <Property Name="redt" Type="datetime" />
           <Property Name="reuid" Type="int" />
+          <Property Name="BusinessName" Type="varchar" MaxLength="50" />
+          <Property Name="ContactName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="PostCode" Type="varchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="IntPhoneNo" Type="varchar" MaxLength="50" />
+          <Property Name="AirportDestCity" Type="varchar" MaxLength="50" />
+          <Property Name="IsEMailVerified" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tblUserRole">
           <Key>
@@ -253,6 +307,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblBoxList_rcuid">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblBoxList" Type="Self.tblBoxList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblBoxList">
+              <PropertyRef Name="rcuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxList_reuid">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblBoxList" Type="Self.tblBoxList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblBoxList">
+              <PropertyRef Name="reuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxList_tblSaleInvoice">
+          <End Role="tblSaleInvoice" Type="Self.tblSaleInvoice" Multiplicity="1" />
+          <End Role="tblBoxList" Type="Self.tblBoxList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Principal>
+            <Dependent Role="tblBoxList">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListBoxDetail_tblBoxList">
+          <End Role="tblBoxList" Type="Self.tblBoxList" Multiplicity="1" />
+          <End Role="tblBoxListBoxDetail" Type="Self.tblBoxListBoxDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBoxList">
+              <PropertyRef Name="BoxListID" />
+            </Principal>
+            <Dependent Role="tblBoxListBoxDetail">
+              <PropertyRef Name="BoxListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListProductDetail_tblBoxListBoxDetail">
+          <End Role="tblBoxListBoxDetail" Type="Self.tblBoxListBoxDetail" Multiplicity="0..1" />
+          <End Role="tblBoxListProductDetail" Type="Self.tblBoxListProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBoxListBoxDetail">
+              <PropertyRef Name="BoxListBoxDetailID" />
+            </Principal>
+            <Dependent Role="tblBoxListProductDetail">
+              <PropertyRef Name="BoxListBoxDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListProductDetail_tblBoxListProductDetail">
+          <End Role="tblBoxList" Type="Self.tblBoxList" Multiplicity="1" />
+          <End Role="tblBoxListProductDetail" Type="Self.tblBoxListProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBoxList">
+              <PropertyRef Name="BoxListID" />
+            </Principal>
+            <Dependent Role="tblBoxListProductDetail">
+              <PropertyRef Name="BoxListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListProductDetail_tblProductScientificName">
+          <End Role="tblProductScientificName" Type="Self.tblProductScientificName" Multiplicity="1" />
+          <End Role="tblBoxListProductDetail" Type="Self.tblBoxListProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductScientificName">
+              <PropertyRef Name="ProductScientificNameID" />
+            </Principal>
+            <Dependent Role="tblBoxListProductDetail">
+              <PropertyRef Name="ProductScientificNameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblCompany_tblUser">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblCompany" Type="Self.tblCompany" Multiplicity="*" />
@@ -274,78 +412,6 @@
             </Principal>
             <Dependent Role="tblCompany">
               <PropertyRef Name="reuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoice_rcuid">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="rcuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoice_reuid">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="reuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoice_tblCustomer">
-          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
-          <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoice_tblSaleOrder">
-          <End Role="tblSaleOrder" Type="Self.tblSaleOrder" Multiplicity="1" />
-          <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSaleOrder">
-              <PropertyRef Name="SaleOrderID" />
-            </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="SaleOrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoiceProductDetail_tblInvoice">
-          <End Role="tblInvoice" Type="Self.tblInvoice" Multiplicity="1" />
-          <End Role="tblInvoiceProductDetail" Type="Self.tblInvoiceProductDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblInvoice">
-              <PropertyRef Name="InvoiceID" />
-            </Principal>
-            <Dependent Role="tblInvoiceProductDetail">
-              <PropertyRef Name="InvoiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoiceProductDetail_tblProduct">
-          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="1" />
-          <End Role="tblInvoiceProductDetail" Type="Self.tblInvoiceProductDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProduct">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="tblInvoiceProductDetail">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -577,6 +643,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblSaleInvoice_rcuid">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblSaleInvoice" Type="Self.tblSaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="rcuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoice_reuid">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblSaleInvoice" Type="Self.tblSaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="reuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoice_tblSaleInvoiceStatus">
+          <End Role="tblSaleInvoiceStatus" Type="Self.tblSaleInvoiceStatus" Multiplicity="1" />
+          <End Role="tblSaleInvoice" Type="Self.tblSaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleInvoiceStatus">
+              <PropertyRef Name="SaleInvoiceStatusID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoice_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblSaleInvoice" Type="Self.tblSaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoiceProductDetail_tblInvoice">
+          <End Role="tblSaleInvoice" Type="Self.tblSaleInvoice" Multiplicity="1" />
+          <End Role="tblSaleInvoiceProductDetail" Type="Self.tblSaleInvoiceProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoiceProductDetail">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoiceProductDetail_tblProduct">
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="1" />
+          <End Role="tblSaleInvoiceProductDetail" Type="Self.tblSaleInvoiceProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoiceProductDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblSaleOrder_rcuid">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
           <End Role="tblSaleOrder" Type="Self.tblSaleOrder" Multiplicity="*" />
@@ -601,12 +739,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSaleOrder_tblCustomer">
-          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
+        <Association Name="FK_tblSaleOrder_tblSaleInvoice">
+          <End Role="tblSaleInvoice" Type="Self.tblSaleInvoice" Multiplicity="0..1" />
           <End Role="tblSaleOrder" Type="Self.tblSaleOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerID" />
+            <Principal Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Principal>
+            <Dependent Role="tblSaleOrder">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleOrder_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblSaleOrder" Type="Self.tblSaleOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
             </Principal>
             <Dependent Role="tblSaleOrder">
               <PropertyRef Name="CustomerID" />
@@ -662,7 +812,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblUser_tblUserRole">
-          <End Role="tblUserRole" Type="Self.tblUserRole" Multiplicity="0..1" />
+          <End Role="tblUserRole" Type="Self.tblUserRole" Multiplicity="1" />
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUserRole">
@@ -686,10 +836,10 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="dbUltraCoralModelStoreContainer">
+          <EntitySet Name="tblBoxList" EntityType="Self.tblBoxList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBoxListBoxDetail" EntityType="Self.tblBoxListBoxDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBoxListProductDetail" EntityType="Self.tblBoxListProductDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCompany" EntityType="Self.tblCompany" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblInvoice" EntityType="Self.tblInvoice" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblInvoiceProductDetail" EntityType="Self.tblInvoiceProductDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProduct" EntityType="Self.tblProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProductCommonName" EntityType="Self.tblProductCommonName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProductCultivationType" EntityType="Self.tblProductCultivationType" Schema="dbo" store:Type="Tables" />
@@ -697,6 +847,9 @@
           <EntitySet Name="tblProductRate" EntityType="Self.tblProductRate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProductScientificName" EntityType="Self.tblProductScientificName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProductSize" EntityType="Self.tblProductSize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSaleInvoice" EntityType="Self.tblSaleInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSaleInvoiceProductDetail" EntityType="Self.tblSaleInvoiceProductDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSaleInvoiceStatus" EntityType="Self.tblSaleInvoiceStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSaleOrder" EntityType="Self.tblSaleOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSaleOrderProductDetail" EntityType="Self.tblSaleOrderProductDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUpdateInventoryLog" EntityType="Self.tblUpdateInventoryLog" Schema="dbo" store:Type="Tables" />
@@ -707,6 +860,34 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblUpdateInventoryLog" EntitySet="tblUpdateInventoryLog" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblBoxList_rcuid" Association="Self.FK_tblBoxList_rcuid">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblBoxList" EntitySet="tblBoxList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxList_reuid" Association="Self.FK_tblBoxList_reuid">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblBoxList" EntitySet="tblBoxList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxList_tblSaleInvoice" Association="Self.FK_tblBoxList_tblSaleInvoice">
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoice" />
+            <End Role="tblBoxList" EntitySet="tblBoxList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListBoxDetail_tblBoxList" Association="Self.FK_tblBoxListBoxDetail_tblBoxList">
+            <End Role="tblBoxList" EntitySet="tblBoxList" />
+            <End Role="tblBoxListBoxDetail" EntitySet="tblBoxListBoxDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListProductDetail_tblBoxListBoxDetail" Association="Self.FK_tblBoxListProductDetail_tblBoxListBoxDetail">
+            <End Role="tblBoxListBoxDetail" EntitySet="tblBoxListBoxDetail" />
+            <End Role="tblBoxListProductDetail" EntitySet="tblBoxListProductDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListProductDetail_tblBoxListProductDetail" Association="Self.FK_tblBoxListProductDetail_tblBoxListProductDetail">
+            <End Role="tblBoxList" EntitySet="tblBoxList" />
+            <End Role="tblBoxListProductDetail" EntitySet="tblBoxListProductDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListProductDetail_tblProductScientificName" Association="Self.FK_tblBoxListProductDetail_tblProductScientificName">
+            <End Role="tblProductScientificName" EntitySet="tblProductScientificName" />
+            <End Role="tblBoxListProductDetail" EntitySet="tblBoxListProductDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblCompany_tblUser" Association="Self.FK_tblCompany_tblUser">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblCompany" EntitySet="tblCompany" />
@@ -714,30 +895,6 @@
           <AssociationSet Name="FK_tblCompany_tblUser1" Association="Self.FK_tblCompany_tblUser1">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblCompany" EntitySet="tblCompany" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoice_rcuid" Association="Self.FK_tblInvoice_rcuid">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblInvoice" EntitySet="tblInvoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoice_reuid" Association="Self.FK_tblInvoice_reuid">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblInvoice" EntitySet="tblInvoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoice_tblCustomer" Association="Self.FK_tblInvoice_tblCustomer">
-            <End Role="tblCustomer" EntitySet="tblCustomer" />
-            <End Role="tblInvoice" EntitySet="tblInvoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoice_tblSaleOrder" Association="Self.FK_tblInvoice_tblSaleOrder">
-            <End Role="tblSaleOrder" EntitySet="tblSaleOrder" />
-            <End Role="tblInvoice" EntitySet="tblInvoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoiceProductDetail_tblInvoice" Association="Self.FK_tblInvoiceProductDetail_tblInvoice">
-            <End Role="tblInvoice" EntitySet="tblInvoice" />
-            <End Role="tblInvoiceProductDetail" EntitySet="tblInvoiceProductDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoiceProductDetail_tblProduct" Association="Self.FK_tblInvoiceProductDetail_tblProduct">
-            <End Role="tblProduct" EntitySet="tblProduct" />
-            <End Role="tblInvoiceProductDetail" EntitySet="tblInvoiceProductDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_tblIUpdateInventoryLog_tblProduct" Association="Self.FK_tblIUpdateInventoryLog_tblProduct">
             <End Role="tblProduct" EntitySet="tblProduct" />
@@ -815,6 +972,30 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblProductSize" EntitySet="tblProductSize" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoice_rcuid" Association="Self.FK_tblSaleInvoice_rcuid">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoice_reuid" Association="Self.FK_tblSaleInvoice_reuid">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoice_tblSaleInvoiceStatus" Association="Self.FK_tblSaleInvoice_tblSaleInvoiceStatus">
+            <End Role="tblSaleInvoiceStatus" EntitySet="tblSaleInvoiceStatus" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoice_tblUser" Association="Self.FK_tblSaleInvoice_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoiceProductDetail_tblInvoice" Association="Self.FK_tblSaleInvoiceProductDetail_tblInvoice">
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoice" />
+            <End Role="tblSaleInvoiceProductDetail" EntitySet="tblSaleInvoiceProductDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoiceProductDetail_tblProduct" Association="Self.FK_tblSaleInvoiceProductDetail_tblProduct">
+            <End Role="tblProduct" EntitySet="tblProduct" />
+            <End Role="tblSaleInvoiceProductDetail" EntitySet="tblSaleInvoiceProductDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblSaleOrder_rcuid" Association="Self.FK_tblSaleOrder_rcuid">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblSaleOrder" EntitySet="tblSaleOrder" />
@@ -823,8 +1004,12 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblSaleOrder" EntitySet="tblSaleOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSaleOrder_tblCustomer" Association="Self.FK_tblSaleOrder_tblCustomer">
-            <End Role="tblCustomer" EntitySet="tblCustomer" />
+          <AssociationSet Name="FK_tblSaleOrder_tblSaleInvoice" Association="Self.FK_tblSaleOrder_tblSaleInvoice">
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoice" />
+            <End Role="tblSaleOrder" EntitySet="tblSaleOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleOrder_tblUser" Association="Self.FK_tblSaleOrder_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblSaleOrder" EntitySet="tblSaleOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_tblSaleOrderProductDetail_tblProduct" Association="Self.FK_tblSaleOrderProductDetail_tblProduct">
@@ -858,19 +1043,22 @@
       <Schema Namespace="dbUltraCoralModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="dbUltraCoralEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblCompanies" EntityType="dbUltraCoralModel.tblCompany" />
-          <EntitySet Name="tblInvoices" EntityType="dbUltraCoralModel.tblInvoice" />
-          <EntitySet Name="tblInvoiceProductDetails" EntityType="dbUltraCoralModel.tblInvoiceProductDetail" />
           <EntitySet Name="tblProductCommonNames" EntityType="dbUltraCoralModel.tblProductCommonName" />
           <EntitySet Name="tblProductCultivationTypes" EntityType="dbUltraCoralModel.tblProductCultivationType" />
           <EntitySet Name="tblProductOpeningStocks" EntityType="dbUltraCoralModel.tblProductOpeningStock" />
           <EntitySet Name="tblProductRates" EntityType="dbUltraCoralModel.tblProductRate" />
           <EntitySet Name="tblProductScientificNames" EntityType="dbUltraCoralModel.tblProductScientificName" />
-          <EntitySet Name="tblProductSizes" EntityType="dbUltraCoralModel.tblProductSize" />
+          <EntitySet Name="tblSaleInvoiceProductDetails" EntityType="dbUltraCoralModel.tblSaleInvoiceProductDetail" />
           <EntitySet Name="tblSaleOrders" EntityType="dbUltraCoralModel.tblSaleOrder" />
           <EntitySet Name="tblSaleOrderProductDetails" EntityType="dbUltraCoralModel.tblSaleOrderProductDetail" />
-          <EntitySet Name="tblUsers" EntityType="dbUltraCoralModel.tblUser" />
+          <EntitySet Name="tblUpdateInventoryLogs" EntityType="dbUltraCoralModel.tblUpdateInventoryLog" />
           <EntitySet Name="tblUserRoles" EntityType="dbUltraCoralModel.tblUserRole" />
           <EntitySet Name="tblUsersLoginLogs" EntityType="dbUltraCoralModel.tblUsersLoginLog" />
+          <AssociationSet Name="FK_tblSaleOrderProductDetail_tblSaleOrder" Association="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblSaleOrder">
+            <End Role="tblSaleOrder" EntitySet="tblSaleOrders" />
+            <End Role="tblSaleOrderProductDetail" EntitySet="tblSaleOrderProductDetails" />
+          </AssociationSet>
+          <EntitySet Name="tblUsers" EntityType="dbUltraCoralModel.tblUser" />
           <AssociationSet Name="FK_tblCompany_tblUser" Association="dbUltraCoralModel.FK_tblCompany_tblUser">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblCompany" EntitySet="tblCompanies" />
@@ -878,22 +1066,6 @@
           <AssociationSet Name="FK_tblCompany_tblUser1" Association="dbUltraCoralModel.FK_tblCompany_tblUser1">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblCompany" EntitySet="tblCompanies" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoice_rcuid" Association="dbUltraCoralModel.FK_tblInvoice_rcuid">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblInvoice" EntitySet="tblInvoices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoice_reuid" Association="dbUltraCoralModel.FK_tblInvoice_reuid">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblInvoice" EntitySet="tblInvoices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoice_tblSaleOrder" Association="dbUltraCoralModel.FK_tblInvoice_tblSaleOrder">
-            <End Role="tblSaleOrder" EntitySet="tblSaleOrders" />
-            <End Role="tblInvoice" EntitySet="tblInvoices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblInvoiceProductDetail_tblInvoice" Association="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblInvoice">
-            <End Role="tblInvoice" EntitySet="tblInvoices" />
-            <End Role="tblInvoiceProductDetail" EntitySet="tblInvoiceProductDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tblProductCommonName_rcuid" Association="dbUltraCoralModel.FK_tblProductCommonName_rcuid">
             <End Role="tblUser" EntitySet="tblUsers" />
@@ -927,14 +1099,6 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblProductScientificName" EntitySet="tblProductScientificNames" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblProductSize_rcuid" Association="dbUltraCoralModel.FK_tblProductSize_rcuid">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblProductSize" EntitySet="tblProductSizes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProductSize_tblUser" Association="dbUltraCoralModel.FK_tblProductSize_tblUser">
-            <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblProductSize" EntitySet="tblProductSizes" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblSaleOrder_rcuid" Association="dbUltraCoralModel.FK_tblSaleOrder_rcuid">
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblSaleOrder" EntitySet="tblSaleOrders" />
@@ -943,9 +1107,13 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblSaleOrder" EntitySet="tblSaleOrders" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSaleOrderProductDetail_tblSaleOrder" Association="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblSaleOrder">
+          <AssociationSet Name="FK_tblSaleOrder_tblUser" Association="dbUltraCoralModel.FK_tblSaleOrder_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblSaleOrder" EntitySet="tblSaleOrders" />
-            <End Role="tblSaleOrderProductDetail" EntitySet="tblSaleOrderProductDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbIUpdateInventoryLog_tblUser" Association="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblUpdateInventoryLog" EntitySet="tblUpdateInventoryLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_tblUser_rcuid" Association="dbUltraCoralModel.FK_tblUser_rcuid">
             <End Role="tblUser" EntitySet="tblUsers" />
@@ -963,16 +1131,42 @@
             <End Role="tblUser" EntitySet="tblUsers" />
             <End Role="tblUsersLoginLog" EntitySet="tblUsersLoginLogs" />
           </AssociationSet>
-          <EntitySet Name="tblUpdateInventoryLogs" EntityType="dbUltraCoralModel.tblUpdateInventoryLog" />
-          <AssociationSet Name="FK_tbIUpdateInventoryLog_tblUser" Association="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser">
+          <EntitySet Name="tblSaleInvoices" EntityType="dbUltraCoralModel.tblSaleInvoice" />
+          <EntitySet Name="tblSaleInvoiceStatus" EntityType="dbUltraCoralModel.tblSaleInvoiceStatu" />
+          <AssociationSet Name="FK_tblSaleInvoice_rcuid" Association="dbUltraCoralModel.FK_tblSaleInvoice_rcuid">
             <End Role="tblUser" EntitySet="tblUsers" />
-            <End Role="tblUpdateInventoryLog" EntitySet="tblUpdateInventoryLogs" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoice_reuid" Association="dbUltraCoralModel.FK_tblSaleInvoice_reuid">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoice_tblSaleInvoiceStatus" Association="dbUltraCoralModel.FK_tblSaleInvoice_tblSaleInvoiceStatus">
+            <End Role="tblSaleInvoiceStatu" EntitySet="tblSaleInvoiceStatus" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoice_tblUser" Association="dbUltraCoralModel.FK_tblSaleInvoice_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoiceProductDetail_tblInvoice" Association="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblInvoice">
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoices" />
+            <End Role="tblSaleInvoiceProductDetail" EntitySet="tblSaleInvoiceProductDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSaleOrder_tblSaleInvoice" Association="dbUltraCoralModel.FK_tblSaleOrder_tblSaleInvoice">
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoices" />
+            <End Role="tblSaleOrder" EntitySet="tblSaleOrders" />
+          </AssociationSet>
+          <EntitySet Name="tblProductSizes" EntityType="dbUltraCoralModel.tblProductSize" />
+          <AssociationSet Name="FK_tblProductSize_rcuid" Association="dbUltraCoralModel.FK_tblProductSize_rcuid">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblProductSize" EntitySet="tblProductSizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProductSize_tblUser" Association="dbUltraCoralModel.FK_tblProductSize_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblProductSize" EntitySet="tblProductSizes" />
           </AssociationSet>
           <EntitySet Name="tblProducts" EntityType="dbUltraCoralModel.tblProduct" />
-          <AssociationSet Name="FK_tblInvoiceProductDetail_tblProduct" Association="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblProduct">
-            <End Role="tblProduct" EntitySet="tblProducts" />
-            <End Role="tblInvoiceProductDetail" EntitySet="tblInvoiceProductDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblIUpdateInventoryLog_tblProduct" Association="dbUltraCoralModel.FK_tblIUpdateInventoryLog_tblProduct">
             <End Role="tblProduct" EntitySet="tblProducts" />
             <End Role="tblUpdateInventoryLog" EntitySet="tblUpdateInventoryLogs" />
@@ -1009,18 +1203,44 @@
             <End Role="tblProduct" EntitySet="tblProducts" />
             <End Role="tblProductRate" EntitySet="tblProductRates" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblSaleInvoiceProductDetail_tblProduct" Association="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblProduct">
+            <End Role="tblProduct" EntitySet="tblProducts" />
+            <End Role="tblSaleInvoiceProductDetail" EntitySet="tblSaleInvoiceProductDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblSaleOrderProductDetail_tblProduct" Association="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblProduct">
             <End Role="tblProduct" EntitySet="tblProducts" />
             <End Role="tblSaleOrderProductDetail" EntitySet="tblSaleOrderProductDetails" />
           </AssociationSet>
-          <EntitySet Name="tblCustomers" EntityType="dbUltraCoralModel.tblCustomer" />
-          <AssociationSet Name="FK_tblInvoice_tblCustomer" Association="dbUltraCoralModel.FK_tblInvoice_tblCustomer">
-            <End Role="tblCustomer" EntitySet="tblCustomers" />
-            <End Role="tblInvoice" EntitySet="tblInvoices" />
+          <EntitySet Name="tblBoxLists" EntityType="dbUltraCoralModel.tblBoxList" />
+          <EntitySet Name="tblBoxListBoxDetails" EntityType="dbUltraCoralModel.tblBoxListBoxDetail" />
+          <EntitySet Name="tblBoxListProductDetails" EntityType="dbUltraCoralModel.tblBoxListProductDetail" />
+          <AssociationSet Name="FK_tblBoxList_rcuid" Association="dbUltraCoralModel.FK_tblBoxList_rcuid">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblBoxList" EntitySet="tblBoxLists" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblSaleOrder_tblCustomer" Association="dbUltraCoralModel.FK_tblSaleOrder_tblCustomer">
-            <End Role="tblCustomer" EntitySet="tblCustomers" />
-            <End Role="tblSaleOrder" EntitySet="tblSaleOrders" />
+          <AssociationSet Name="FK_tblBoxList_reuid" Association="dbUltraCoralModel.FK_tblBoxList_reuid">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblBoxList" EntitySet="tblBoxLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxList_tblSaleInvoice" Association="dbUltraCoralModel.FK_tblBoxList_tblSaleInvoice">
+            <End Role="tblSaleInvoice" EntitySet="tblSaleInvoices" />
+            <End Role="tblBoxList" EntitySet="tblBoxLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListBoxDetail_tblBoxList" Association="dbUltraCoralModel.FK_tblBoxListBoxDetail_tblBoxList">
+            <End Role="tblBoxList" EntitySet="tblBoxLists" />
+            <End Role="tblBoxListBoxDetail" EntitySet="tblBoxListBoxDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListProductDetail_tblBoxListProductDetail" Association="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListProductDetail">
+            <End Role="tblBoxList" EntitySet="tblBoxLists" />
+            <End Role="tblBoxListProductDetail" EntitySet="tblBoxListProductDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListProductDetail_tblBoxListBoxDetail" Association="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListBoxDetail">
+            <End Role="tblBoxListBoxDetail" EntitySet="tblBoxListBoxDetails" />
+            <End Role="tblBoxListProductDetail" EntitySet="tblBoxListProductDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBoxListProductDetail_tblProductScientificName" Association="dbUltraCoralModel.FK_tblBoxListProductDetail_tblProductScientificName">
+            <End Role="tblProductScientificName" EntitySet="tblProductScientificNames" />
+            <End Role="tblBoxListProductDetail" EntitySet="tblBoxListProductDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tblCompany">
@@ -1040,55 +1260,13 @@
           <Property Name="rcuid" Type="Int32" />
           <Property Name="redt" Type="DateTime" Precision="3" />
           <Property Name="reuid" Type="Int32" />
+          <Property Name="noreplyEmailID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="noreplyEmailIDPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="noreplyOutgoingSMTPServerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="noreplyOutgoingSMTPPort" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblCompany_tblUser" FromRole="tblCompany" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblCompany_tblUser1" FromRole="tblCompany" ToRole="tblUser" />
-        </EntityType>
-        <EntityType Name="tblInvoice">
-          <Key>
-            <PropertyRef Name="InvoiceID" />
-          </Key>
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="InvoiceNo" Type="Int32" Nullable="false" />
-          <Property Name="SaleOrderID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="AirportDestCity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EstDelDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FreightAWBNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FreightFlight1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FreightFlight2" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TotalQuan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="TotalGAmt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="DomesticFreightCharges" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="BoxCharges" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="IntFreightCharges" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="TTFee" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="TotalFreight" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="PreviousCredit" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="TotalPayableAmt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="rcdt" Type="DateTime" Precision="3" />
-          <Property Name="rcuid" Type="Int32" />
-          <Property Name="redt" Type="DateTime" Precision="3" />
-          <Property Name="reuid" Type="Int32" />
-          <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblInvoice_rcuid" FromRole="tblInvoice" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblInvoice_reuid" FromRole="tblInvoice" ToRole="tblUser" />
-          <NavigationProperty Name="tblSaleOrder" Relationship="dbUltraCoralModel.FK_tblInvoice_tblSaleOrder" FromRole="tblInvoice" ToRole="tblSaleOrder" />
-          <NavigationProperty Name="tblInvoiceProductDetails" Relationship="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblInvoice" FromRole="tblInvoice" ToRole="tblInvoiceProductDetail" />
-          <NavigationProperty Name="tblCustomer" Relationship="dbUltraCoralModel.FK_tblInvoice_tblCustomer" FromRole="tblInvoice" ToRole="tblCustomer" />
-        </EntityType>
-        <EntityType Name="tblInvoiceProductDetail">
-          <Key>
-            <PropertyRef Name="InvoiceProductDetailID" />
-          </Key>
-          <Property Name="InvoiceProductDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Quan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="Amt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <NavigationProperty Name="tblInvoice" Relationship="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblInvoice" FromRole="tblInvoiceProductDetail" ToRole="tblInvoice" />
-          <NavigationProperty Name="tblProduct" Relationship="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblProduct" FromRole="tblInvoiceProductDetail" ToRole="tblProduct" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="tblProductCommonName">
           <Key>
             <PropertyRef Name="ProductCommonNameID" />
@@ -1102,7 +1280,7 @@
           <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblProductCommonName_rcuid" FromRole="tblProductCommonName" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblProductCommonName_reuid" FromRole="tblProductCommonName" ToRole="tblUser" />
           <NavigationProperty Name="tblProducts" Relationship="dbUltraCoralModel.FK_tblProduct_tblProductCommonName" FromRole="tblProductCommonName" ToRole="tblProduct" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="tblProductCultivationType">
           <Key>
             <PropertyRef Name="ProductCultivationTypeID" />
@@ -1147,7 +1325,7 @@
           <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblProductRate_rcuid" FromRole="tblProductRate" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblProductRate_reuid" FromRole="tblProductRate" ToRole="tblUser" />
           <NavigationProperty Name="tblProduct" Relationship="dbUltraCoralModel.FK_tblProductRate_tblProduct" FromRole="tblProductRate" ToRole="tblProduct" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="tblProductScientificName">
           <Key>
             <PropertyRef Name="ProductScientificNameID" />
@@ -1162,20 +1340,24 @@
           <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblProductScientificName_rcuid" FromRole="tblProductScientificName" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblProductScientificName_reuid" FromRole="tblProductScientificName" ToRole="tblUser" />
           <NavigationProperty Name="tblProducts" Relationship="dbUltraCoralModel.FK_tblProduct_tblProductScientificName" FromRole="tblProductScientificName" ToRole="tblProduct" />
-        </EntityType>
-        <EntityType Name="tblProductSize">
+          <NavigationProperty Name="tblBoxListProductDetails" Relationship="dbUltraCoralModel.FK_tblBoxListProductDetail_tblProductScientificName" FromRole="tblProductScientificName" ToRole="tblBoxListProductDetail" />
+          </EntityType>
+        <EntityType Name="tblSaleInvoiceProductDetail">
           <Key>
-            <PropertyRef Name="ProductSizeID" />
+            <PropertyRef Name="SaleInvoiceProductDetailID" />
           </Key>
-          <Property Name="ProductSizeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductSizeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SaleInvoiceProductDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleInvoiceID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="Amt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="rcdt" Type="DateTime" Precision="3" />
           <Property Name="rcuid" Type="Int32" />
           <Property Name="redt" Type="DateTime" Precision="3" />
           <Property Name="reuid" Type="Int32" />
-          <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblProductSize_rcuid" FromRole="tblProductSize" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblProductSize_tblUser" FromRole="tblProductSize" ToRole="tblUser" />
-          <NavigationProperty Name="tblProducts" Relationship="dbUltraCoralModel.FK_tblProduct_tblProductSize" FromRole="tblProductSize" ToRole="tblProduct" />
+          <NavigationProperty Name="tblSaleInvoice" Relationship="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblInvoice" FromRole="tblSaleInvoiceProductDetail" ToRole="tblSaleInvoice" />
+          <NavigationProperty Name="tblProduct" Relationship="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblProduct" FromRole="tblSaleInvoiceProductDetail" ToRole="tblProduct" />
         </EntityType>
         <EntityType Name="tblSaleOrder">
           <Key>
@@ -1185,19 +1367,28 @@
           <Property Name="SODate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="SONo" Type="Int32" Nullable="false" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="AirportDest" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EstDelDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Postcode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailContact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IntPhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AirportDestCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EstDelDate" Type="DateTime" Precision="3" />
           <Property Name="TotalQuan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="TotalAmt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="rcdt" Type="DateTime" Precision="3" />
           <Property Name="rcuid" Type="Int32" />
           <Property Name="redt" Type="DateTime" Precision="3" />
           <Property Name="reuid" Type="Int32" />
-          <NavigationProperty Name="tblInvoices" Relationship="dbUltraCoralModel.FK_tblInvoice_tblSaleOrder" FromRole="tblSaleOrder" ToRole="tblInvoice" />
+          <Property Name="SaleInvoiceID" Type="Int32" />
+          <NavigationProperty Name="tblSaleOrderProductDetails" Relationship="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblSaleOrder" FromRole="tblSaleOrder" ToRole="tblSaleOrderProductDetail" />
           <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblSaleOrder_rcuid" FromRole="tblSaleOrder" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblSaleOrder_reuid" FromRole="tblSaleOrder" ToRole="tblUser" />
-          <NavigationProperty Name="tblSaleOrderProductDetails" Relationship="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblSaleOrder" FromRole="tblSaleOrder" ToRole="tblSaleOrderProductDetail" />
-          <NavigationProperty Name="tblCustomer" Relationship="dbUltraCoralModel.FK_tblSaleOrder_tblCustomer" FromRole="tblSaleOrder" ToRole="tblCustomer" />
+          <NavigationProperty Name="tblUser2" Relationship="dbUltraCoralModel.FK_tblSaleOrder_tblUser" FromRole="tblSaleOrder" ToRole="tblUser" />
+          <NavigationProperty Name="tblSaleInvoice" Relationship="dbUltraCoralModel.FK_tblSaleOrder_tblSaleInvoice" FromRole="tblSaleOrder" ToRole="tblSaleInvoice" />
         </EntityType>
         <EntityType Name="tblSaleOrderProductDetail">
           <Key>
@@ -1208,49 +1399,21 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="Rate" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <Property Name="Quan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="Amt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
           <NavigationProperty Name="tblSaleOrder" Relationship="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblSaleOrder" FromRole="tblSaleOrderProductDetail" ToRole="tblSaleOrder" />
           <NavigationProperty Name="tblProduct" Relationship="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblProduct" FromRole="tblSaleOrderProductDetail" ToRole="tblProduct" />
         </EntityType>
-        <EntityType Name="tblUser">
+        <EntityType Name="tblUpdateInventoryLog">
           <Key>
-            <PropertyRef Name="UserID" />
+            <PropertyRef Name="UpdateInventoryLogID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmailID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-          <Property Name="UserRoleID" Type="Int32" />
-          <Property Name="rcdt" Type="DateTime" Precision="3" />
-          <Property Name="rcuid" Type="Int32" />
-          <Property Name="redt" Type="DateTime" Precision="3" />
-          <Property Name="reuid" Type="Int32" />
-          <NavigationProperty Name="tblCompanies" Relationship="dbUltraCoralModel.FK_tblCompany_tblUser" FromRole="tblUser" ToRole="tblCompany" />
-          <NavigationProperty Name="tblCompanies1" Relationship="dbUltraCoralModel.FK_tblCompany_tblUser1" FromRole="tblUser" ToRole="tblCompany" />
-          <NavigationProperty Name="tblInvoices" Relationship="dbUltraCoralModel.FK_tblInvoice_rcuid" FromRole="tblUser" ToRole="tblInvoice" />
-          <NavigationProperty Name="tblInvoices1" Relationship="dbUltraCoralModel.FK_tblInvoice_reuid" FromRole="tblUser" ToRole="tblInvoice" />
-          <NavigationProperty Name="tblProductCommonNames" Relationship="dbUltraCoralModel.FK_tblProductCommonName_rcuid" FromRole="tblUser" ToRole="tblProductCommonName" />
-          <NavigationProperty Name="tblProductCommonNames1" Relationship="dbUltraCoralModel.FK_tblProductCommonName_reuid" FromRole="tblUser" ToRole="tblProductCommonName" />
-          <NavigationProperty Name="tblProductOpeningStocks" Relationship="dbUltraCoralModel.FK_tblProductOpeningStock_rcuid" FromRole="tblUser" ToRole="tblProductOpeningStock" />
-          <NavigationProperty Name="tblProductOpeningStocks1" Relationship="dbUltraCoralModel.FK_tblProductOpeningStock_reuid" FromRole="tblUser" ToRole="tblProductOpeningStock" />
-          <NavigationProperty Name="tblProductRates" Relationship="dbUltraCoralModel.FK_tblProductRate_rcuid" FromRole="tblUser" ToRole="tblProductRate" />
-          <NavigationProperty Name="tblProductRates1" Relationship="dbUltraCoralModel.FK_tblProductRate_reuid" FromRole="tblUser" ToRole="tblProductRate" />
-          <NavigationProperty Name="tblProductScientificNames" Relationship="dbUltraCoralModel.FK_tblProductScientificName_rcuid" FromRole="tblUser" ToRole="tblProductScientificName" />
-          <NavigationProperty Name="tblProductScientificNames1" Relationship="dbUltraCoralModel.FK_tblProductScientificName_reuid" FromRole="tblUser" ToRole="tblProductScientificName" />
-          <NavigationProperty Name="tblProductSizes" Relationship="dbUltraCoralModel.FK_tblProductSize_rcuid" FromRole="tblUser" ToRole="tblProductSize" />
-          <NavigationProperty Name="tblProductSizes1" Relationship="dbUltraCoralModel.FK_tblProductSize_tblUser" FromRole="tblUser" ToRole="tblProductSize" />
-          <NavigationProperty Name="tblSaleOrders" Relationship="dbUltraCoralModel.FK_tblSaleOrder_rcuid" FromRole="tblUser" ToRole="tblSaleOrder" />
-          <NavigationProperty Name="tblSaleOrders1" Relationship="dbUltraCoralModel.FK_tblSaleOrder_reuid" FromRole="tblUser" ToRole="tblSaleOrder" />
-          <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblUser_rcuid" FromRole="tblUser" ToRole="tblUser1" />
-          <NavigationProperty Name="tblUser2" Relationship="dbUltraCoralModel.FK_tblUser_rcuid" FromRole="tblUser1" ToRole="tblUser" />
-          <NavigationProperty Name="tblUser11" Relationship="dbUltraCoralModel.FK_tblUser_reuid" FromRole="tblUser" ToRole="tblUser1" />
-          <NavigationProperty Name="tblUser3" Relationship="dbUltraCoralModel.FK_tblUser_reuid" FromRole="tblUser1" ToRole="tblUser" />
-          <NavigationProperty Name="tblUserRole" Relationship="dbUltraCoralModel.FK_tblUser_tblUserRole" FromRole="tblUser" ToRole="tblUserRole" />
-          <NavigationProperty Name="tblUsersLoginLogs" Relationship="dbUltraCoralModel.FK_tblUsersLoginLog_tblUser" FromRole="tblUser" ToRole="tblUsersLoginLog" />
-          <NavigationProperty Name="tblUpdateInventoryLogs" Relationship="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser" FromRole="tblUser" ToRole="tblUpdateInventoryLog" />
-          <NavigationProperty Name="tblProducts" Relationship="dbUltraCoralModel.FK_tblProduct_rcuid" FromRole="tblUser" ToRole="tblProduct" />
-          <NavigationProperty Name="tblProducts1" Relationship="dbUltraCoralModel.FK_tblProduct_reuid" FromRole="tblUser" ToRole="tblProduct" />
+          <Property Name="UpdateInventoryLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LogDT" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser" FromRole="tblUpdateInventoryLog" ToRole="tblUser" />
+          <NavigationProperty Name="tblProduct" Relationship="dbUltraCoralModel.FK_tblIUpdateInventoryLog_tblProduct" FromRole="tblUpdateInventoryLog" ToRole="tblProduct" />
         </EntityType>
         <EntityType Name="tblUserRole">
           <Key>
@@ -1268,6 +1431,71 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="LoginDT" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblUsersLoginLog_tblUser" FromRole="tblUsersLoginLog" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_tblSaleOrderProductDetail_tblSaleOrder">
+          <End Type="dbUltraCoralModel.tblSaleOrder" Role="tblSaleOrder" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblSaleOrderProductDetail" Role="tblSaleOrderProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleOrder">
+              <PropertyRef Name="SaleOrderID" />
+            </Principal>
+            <Dependent Role="tblSaleOrderProductDetail">
+              <PropertyRef Name="SaleOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <Property Name="UserRoleID" Type="Int32" Nullable="false" />
+          <Property Name="rcdt" Type="DateTime" Precision="3" />
+          <Property Name="rcuid" Type="Int32" />
+          <Property Name="redt" Type="DateTime" Precision="3" />
+          <Property Name="reuid" Type="Int32" />
+          <Property Name="BusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IntPhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AirportDestCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsEMailVerified" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblCompanies" Relationship="dbUltraCoralModel.FK_tblCompany_tblUser" FromRole="tblUser" ToRole="tblCompany" />
+          <NavigationProperty Name="tblCompanies1" Relationship="dbUltraCoralModel.FK_tblCompany_tblUser1" FromRole="tblUser" ToRole="tblCompany" />
+          <NavigationProperty Name="tblProductCommonNames" Relationship="dbUltraCoralModel.FK_tblProductCommonName_rcuid" FromRole="tblUser" ToRole="tblProductCommonName" />
+          <NavigationProperty Name="tblProductCommonNames1" Relationship="dbUltraCoralModel.FK_tblProductCommonName_reuid" FromRole="tblUser" ToRole="tblProductCommonName" />
+          <NavigationProperty Name="tblProductOpeningStocks" Relationship="dbUltraCoralModel.FK_tblProductOpeningStock_rcuid" FromRole="tblUser" ToRole="tblProductOpeningStock" />
+          <NavigationProperty Name="tblProductOpeningStocks1" Relationship="dbUltraCoralModel.FK_tblProductOpeningStock_reuid" FromRole="tblUser" ToRole="tblProductOpeningStock" />
+          <NavigationProperty Name="tblProductRates" Relationship="dbUltraCoralModel.FK_tblProductRate_rcuid" FromRole="tblUser" ToRole="tblProductRate" />
+          <NavigationProperty Name="tblProductRates1" Relationship="dbUltraCoralModel.FK_tblProductRate_reuid" FromRole="tblUser" ToRole="tblProductRate" />
+          <NavigationProperty Name="tblProductScientificNames" Relationship="dbUltraCoralModel.FK_tblProductScientificName_rcuid" FromRole="tblUser" ToRole="tblProductScientificName" />
+          <NavigationProperty Name="tblProductScientificNames1" Relationship="dbUltraCoralModel.FK_tblProductScientificName_reuid" FromRole="tblUser" ToRole="tblProductScientificName" />
+          <NavigationProperty Name="tblSaleOrders" Relationship="dbUltraCoralModel.FK_tblSaleOrder_rcuid" FromRole="tblUser" ToRole="tblSaleOrder" />
+          <NavigationProperty Name="tblSaleOrders1" Relationship="dbUltraCoralModel.FK_tblSaleOrder_reuid" FromRole="tblUser" ToRole="tblSaleOrder" />
+          <NavigationProperty Name="tblSaleOrders2" Relationship="dbUltraCoralModel.FK_tblSaleOrder_tblUser" FromRole="tblUser" ToRole="tblSaleOrder" />
+          <NavigationProperty Name="tblUpdateInventoryLogs" Relationship="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser" FromRole="tblUser" ToRole="tblUpdateInventoryLog" />
+          <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblUser_rcuid" FromRole="tblUser" ToRole="tblUser1" />
+          <NavigationProperty Name="tblUser2" Relationship="dbUltraCoralModel.FK_tblUser_rcuid" FromRole="tblUser1" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser11" Relationship="dbUltraCoralModel.FK_tblUser_reuid" FromRole="tblUser" ToRole="tblUser1" />
+          <NavigationProperty Name="tblUser3" Relationship="dbUltraCoralModel.FK_tblUser_reuid" FromRole="tblUser1" ToRole="tblUser" />
+          <NavigationProperty Name="tblUserRole" Relationship="dbUltraCoralModel.FK_tblUser_tblUserRole" FromRole="tblUser" ToRole="tblUserRole" />
+          <NavigationProperty Name="tblUsersLoginLogs" Relationship="dbUltraCoralModel.FK_tblUsersLoginLog_tblUser" FromRole="tblUser" ToRole="tblUsersLoginLog" />
+          <NavigationProperty Name="tblSaleInvoices" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_rcuid" FromRole="tblUser" ToRole="tblSaleInvoice" />
+          <NavigationProperty Name="tblSaleInvoices1" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_reuid" FromRole="tblUser" ToRole="tblSaleInvoice" />
+          <NavigationProperty Name="tblSaleInvoices2" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_tblUser" FromRole="tblUser" ToRole="tblSaleInvoice" />
+          <NavigationProperty Name="tblProductSizes" Relationship="dbUltraCoralModel.FK_tblProductSize_rcuid" FromRole="tblUser" ToRole="tblProductSize" />
+          <NavigationProperty Name="tblProductSizes1" Relationship="dbUltraCoralModel.FK_tblProductSize_tblUser" FromRole="tblUser" ToRole="tblProductSize" />
+          <NavigationProperty Name="tblProducts" Relationship="dbUltraCoralModel.FK_tblProduct_rcuid" FromRole="tblUser" ToRole="tblProduct" />
+          <NavigationProperty Name="tblProducts1" Relationship="dbUltraCoralModel.FK_tblProduct_reuid" FromRole="tblUser" ToRole="tblProduct" />
+          <NavigationProperty Name="tblBoxLists" Relationship="dbUltraCoralModel.FK_tblBoxList_rcuid" FromRole="tblUser" ToRole="tblBoxList" />
+          <NavigationProperty Name="tblBoxLists1" Relationship="dbUltraCoralModel.FK_tblBoxList_reuid" FromRole="tblUser" ToRole="tblBoxList" />
         </EntityType>
         <Association Name="FK_tblCompany_tblUser">
           <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
@@ -1290,54 +1518,6 @@
             </Principal>
             <Dependent Role="tblCompany">
               <PropertyRef Name="reuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoice_rcuid">
-          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="dbUltraCoralModel.tblInvoice" Role="tblInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="rcuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoice_reuid">
-          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="dbUltraCoralModel.tblInvoice" Role="tblInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="reuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoice_tblSaleOrder">
-          <End Type="dbUltraCoralModel.tblSaleOrder" Role="tblSaleOrder" Multiplicity="1" />
-          <End Type="dbUltraCoralModel.tblInvoice" Role="tblInvoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSaleOrder">
-              <PropertyRef Name="SaleOrderID" />
-            </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="SaleOrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblInvoiceProductDetail_tblInvoice">
-          <End Type="dbUltraCoralModel.tblInvoice" Role="tblInvoice" Multiplicity="1" />
-          <End Type="dbUltraCoralModel.tblInvoiceProductDetail" Role="tblInvoiceProductDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblInvoice">
-              <PropertyRef Name="InvoiceID" />
-            </Principal>
-            <Dependent Role="tblInvoiceProductDetail">
-              <PropertyRef Name="InvoiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1437,30 +1617,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblProductSize_rcuid">
-          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="dbUltraCoralModel.tblProductSize" Role="tblProductSize" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblProductSize">
-              <PropertyRef Name="rcuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProductSize_tblUser">
-          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
-          <End Type="dbUltraCoralModel.tblProductSize" Role="tblProductSize" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblProductSize">
-              <PropertyRef Name="reuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblSaleOrder_rcuid">
           <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
           <End Type="dbUltraCoralModel.tblSaleOrder" Role="tblSaleOrder" Multiplicity="*" />
@@ -1485,15 +1641,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSaleOrderProductDetail_tblSaleOrder">
-          <End Type="dbUltraCoralModel.tblSaleOrder" Role="tblSaleOrder" Multiplicity="1" />
-          <End Type="dbUltraCoralModel.tblSaleOrderProductDetail" Role="tblSaleOrderProductDetail" Multiplicity="*" />
+        <Association Name="FK_tblSaleOrder_tblUser">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblSaleOrder" Role="tblSaleOrder" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblSaleOrder">
-              <PropertyRef Name="SaleOrderID" />
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="tblSaleOrderProductDetail">
-              <PropertyRef Name="SaleOrderID" />
+            <Dependent Role="tblSaleOrder">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbIUpdateInventoryLog_tblUser">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblUpdateInventoryLog" Role="tblUpdateInventoryLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblUpdateInventoryLog">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1522,7 +1690,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblUser_tblUserRole">
-          <End Type="dbUltraCoralModel.tblUserRole" Role="tblUserRole" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblUserRole" Role="tblUserRole" Multiplicity="1" />
           <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUserRole">
@@ -1545,27 +1713,166 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblUpdateInventoryLog">
+        <EntityType Name="tblSaleInvoice">
           <Key>
-            <PropertyRef Name="UpdateInventoryLogID" />
+            <PropertyRef Name="SaleInvoiceID" />
           </Key>
-          <Property Name="UpdateInventoryLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Quan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="LogDT" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser" FromRole="tblUpdateInventoryLog" ToRole="tblUser" />
-          <NavigationProperty Name="tblProduct" Relationship="dbUltraCoralModel.FK_tblIUpdateInventoryLog_tblProduct" FromRole="tblUpdateInventoryLog" ToRole="tblProduct" />
+          <Property Name="SaleInvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="InvoiceNo" Type="Int32" Nullable="false" />
+          <Property Name="SaleInvoiceStatusID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="BusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Postcode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IntPhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailContact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AirportDestCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingDate" Type="DateTime" Precision="0" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="0" />
+          <Property Name="DomesticFlight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InternationalFlight" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalQuan" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="TotalGAmt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="EstBoxes" Type="Int32" Nullable="false" />
+          <Property Name="BoxCharges" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="DomesticFreightCharges" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="IntFreightCharges" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="TTFee" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="TotalFreight" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="PreviousCredit" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="TotalPayableAmt" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="rcdt" Type="DateTime" Precision="3" />
+          <Property Name="rcuid" Type="Int32" />
+          <Property Name="redt" Type="DateTime" Precision="3" />
+          <Property Name="reuid" Type="Int32" />
+          <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_rcuid" FromRole="tblSaleInvoice" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_reuid" FromRole="tblSaleInvoice" ToRole="tblUser" />
+          <NavigationProperty Name="tblSaleInvoiceStatu" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_tblSaleInvoiceStatus" FromRole="tblSaleInvoice" ToRole="tblSaleInvoiceStatu" />
+          <NavigationProperty Name="tblUser2" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_tblUser" FromRole="tblSaleInvoice" ToRole="tblUser" />
+          <NavigationProperty Name="tblSaleInvoiceProductDetails" Relationship="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblInvoice" FromRole="tblSaleInvoice" ToRole="tblSaleInvoiceProductDetail" />
+          <NavigationProperty Name="tblSaleOrders" Relationship="dbUltraCoralModel.FK_tblSaleOrder_tblSaleInvoice" FromRole="tblSaleInvoice" ToRole="tblSaleOrder" />
+          <NavigationProperty Name="tblBoxLists" Relationship="dbUltraCoralModel.FK_tblBoxList_tblSaleInvoice" FromRole="tblSaleInvoice" ToRole="tblBoxList" />
         </EntityType>
-        <Association Name="FK_tbIUpdateInventoryLog_tblUser">
-          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="1" />
-          <End Type="dbUltraCoralModel.tblUpdateInventoryLog" Role="tblUpdateInventoryLog" Multiplicity="*" />
+        <EntityType Name="tblSaleInvoiceStatu">
+          <Key>
+            <PropertyRef Name="SaleInvoiceStatusID" />
+          </Key>
+          <Property Name="SaleInvoiceStatusID" Type="Int32" Nullable="false" />
+          <Property Name="SaleInvoiceStatusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblSaleInvoices" Relationship="dbUltraCoralModel.FK_tblSaleInvoice_tblSaleInvoiceStatus" FromRole="tblSaleInvoiceStatu" ToRole="tblSaleInvoice" />
+        </EntityType>
+        <Association Name="FK_tblSaleInvoice_rcuid">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblSaleInvoice" Role="tblSaleInvoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblUser">
               <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="tblUpdateInventoryLog">
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="rcuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoice_reuid">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblSaleInvoice" Role="tblSaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
               <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="reuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoice_tblSaleInvoiceStatus">
+          <End Type="dbUltraCoralModel.tblSaleInvoiceStatu" Role="tblSaleInvoiceStatu" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblSaleInvoice" Role="tblSaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleInvoiceStatu">
+              <PropertyRef Name="SaleInvoiceStatusID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoice_tblUser">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblSaleInvoice" Role="tblSaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoice">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleInvoiceProductDetail_tblInvoice">
+          <End Type="dbUltraCoralModel.tblSaleInvoice" Role="tblSaleInvoice" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblSaleInvoiceProductDetail" Role="tblSaleInvoiceProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoiceProductDetail">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSaleOrder_tblSaleInvoice">
+          <End Type="dbUltraCoralModel.tblSaleInvoice" Role="tblSaleInvoice" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblSaleOrder" Role="tblSaleOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Principal>
+            <Dependent Role="tblSaleOrder">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblProductSize">
+          <Key>
+            <PropertyRef Name="ProductSizeID" />
+          </Key>
+          <Property Name="ProductSizeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductSizeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuanReq" Type="Boolean" />
+          <Property Name="rcdt" Type="DateTime" Precision="3" />
+          <Property Name="rcuid" Type="Int32" />
+          <Property Name="redt" Type="DateTime" Precision="3" />
+          <Property Name="reuid" Type="Int32" />
+          <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblProductSize_rcuid" FromRole="tblProductSize" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblProductSize_tblUser" FromRole="tblProductSize" ToRole="tblUser" />
+          <NavigationProperty Name="tblProducts" Relationship="dbUltraCoralModel.FK_tblProduct_tblProductSize" FromRole="tblProductSize" ToRole="tblProduct" />
+        </EntityType>
+        <Association Name="FK_tblProductSize_rcuid">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblProductSize" Role="tblProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblProductSize">
+              <PropertyRef Name="rcuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProductSize_tblUser">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblProductSize" Role="tblProductSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblProductSize">
+              <PropertyRef Name="reuid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1588,7 +1895,6 @@
           <Property Name="rcuid" Type="Int32" />
           <Property Name="redt" Type="DateTime" Precision="3" />
           <Property Name="reuid" Type="Int32" />
-          <NavigationProperty Name="tblInvoiceProductDetails" Relationship="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblProduct" FromRole="tblProduct" ToRole="tblInvoiceProductDetail" />
           <NavigationProperty Name="tblUpdateInventoryLogs" Relationship="dbUltraCoralModel.FK_tblIUpdateInventoryLog_tblProduct" FromRole="tblProduct" ToRole="tblUpdateInventoryLog" />
           <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblProduct_rcuid" FromRole="tblProduct" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblProduct_reuid" FromRole="tblProduct" ToRole="tblUser" />
@@ -1598,20 +1904,9 @@
           <NavigationProperty Name="tblProductSize" Relationship="dbUltraCoralModel.FK_tblProduct_tblProductSize" FromRole="tblProduct" ToRole="tblProductSize" />
           <NavigationProperty Name="tblProductOpeningStocks" Relationship="dbUltraCoralModel.FK_tblProductOpeningStock_tblProduct" FromRole="tblProduct" ToRole="tblProductOpeningStock" />
           <NavigationProperty Name="tblProductRates" Relationship="dbUltraCoralModel.FK_tblProductRate_tblProduct" FromRole="tblProduct" ToRole="tblProductRate" />
+          <NavigationProperty Name="tblSaleInvoiceProductDetails" Relationship="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblProduct" FromRole="tblProduct" ToRole="tblSaleInvoiceProductDetail" />
           <NavigationProperty Name="tblSaleOrderProductDetails" Relationship="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblProduct" FromRole="tblProduct" ToRole="tblSaleOrderProductDetail" />
         </EntityType>
-        <Association Name="FK_tblInvoiceProductDetail_tblProduct">
-          <End Type="dbUltraCoralModel.tblProduct" Role="tblProduct" Multiplicity="1" />
-          <End Type="dbUltraCoralModel.tblInvoiceProductDetail" Role="tblInvoiceProductDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProduct">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="tblInvoiceProductDetail">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblIUpdateInventoryLog_tblProduct">
           <End Type="dbUltraCoralModel.tblProduct" Role="tblProduct" Multiplicity="1" />
           <End Type="dbUltraCoralModel.tblUpdateInventoryLog" Role="tblUpdateInventoryLog" Multiplicity="*" />
@@ -1720,6 +2015,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblSaleInvoiceProductDetail_tblProduct">
+          <End Type="dbUltraCoralModel.tblProduct" Role="tblProduct" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblSaleInvoiceProductDetail" Role="tblSaleInvoiceProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tblSaleInvoiceProductDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblSaleOrderProductDetail_tblProduct">
           <End Type="dbUltraCoralModel.tblProduct" Role="tblProduct" Multiplicity="1" />
           <End Type="dbUltraCoralModel.tblSaleOrderProductDetail" Role="tblSaleOrderProductDetail" Multiplicity="*" />
@@ -1732,48 +2039,127 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tblCustomer">
+        <EntityType Name="tblBoxList">
           <Key>
-            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="BoxListID" />
           </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ContactName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EMailID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IntPhoneNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AirportDestCity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="BoxListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleInvoiceID" Type="Int32" Nullable="false" />
           <Property Name="rcdt" Type="DateTime" Precision="3" />
           <Property Name="rcuid" Type="Int32" />
           <Property Name="redt" Type="DateTime" Precision="3" />
           <Property Name="reuid" Type="Int32" />
-          <NavigationProperty Name="tblInvoices" Relationship="dbUltraCoralModel.FK_tblInvoice_tblCustomer" FromRole="tblCustomer" ToRole="tblInvoice" />
-          <NavigationProperty Name="tblSaleOrders" Relationship="dbUltraCoralModel.FK_tblSaleOrder_tblCustomer" FromRole="tblCustomer" ToRole="tblSaleOrder" />
+          <NavigationProperty Name="tblUser" Relationship="dbUltraCoralModel.FK_tblBoxList_rcuid" FromRole="tblBoxList" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser1" Relationship="dbUltraCoralModel.FK_tblBoxList_reuid" FromRole="tblBoxList" ToRole="tblUser" />
+          <NavigationProperty Name="tblSaleInvoice" Relationship="dbUltraCoralModel.FK_tblBoxList_tblSaleInvoice" FromRole="tblBoxList" ToRole="tblSaleInvoice" />
+          <NavigationProperty Name="tblBoxListBoxDetails" Relationship="dbUltraCoralModel.FK_tblBoxListBoxDetail_tblBoxList" FromRole="tblBoxList" ToRole="tblBoxListBoxDetail" />
+          <NavigationProperty Name="tblBoxListProductDetails" Relationship="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListProductDetail" FromRole="tblBoxList" ToRole="tblBoxListProductDetail" />
         </EntityType>
-        <Association Name="FK_tblInvoice_tblCustomer">
-          <End Type="dbUltraCoralModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="dbUltraCoralModel.tblInvoice" Role="tblInvoice" Multiplicity="*" />
+        <EntityType Name="tblBoxListBoxDetail">
+          <Key>
+            <PropertyRef Name="BoxListBoxDetailID" />
+          </Key>
+          <Property Name="BoxListBoxDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BoxListID" Type="Int32" Nullable="false" />
+          <Property Name="BoxNo" Type="Int32" Nullable="false" />
+          <Property Name="TotalQuan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblBoxList" Relationship="dbUltraCoralModel.FK_tblBoxListBoxDetail_tblBoxList" FromRole="tblBoxListBoxDetail" ToRole="tblBoxList" />
+          <NavigationProperty Name="tblBoxListProductDetails" Relationship="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListBoxDetail" FromRole="tblBoxListBoxDetail" ToRole="tblBoxListProductDetail" />
+        </EntityType>
+        <EntityType Name="tblBoxListProductDetail">
+          <Key>
+            <PropertyRef Name="BoxListProductDetailID" />
+          </Key>
+          <Property Name="BoxListProductDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BoxListID" Type="Int32" Nullable="false" />
+          <Property Name="BoxListBoxDetailID" Type="Int32" />
+          <Property Name="ProductScientificNameID" Type="Int32" Nullable="false" />
+          <Property Name="Quan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblBoxList" Relationship="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListProductDetail" FromRole="tblBoxListProductDetail" ToRole="tblBoxList" />
+          <NavigationProperty Name="tblBoxListBoxDetail" Relationship="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListBoxDetail" FromRole="tblBoxListProductDetail" ToRole="tblBoxListBoxDetail" />
+          <NavigationProperty Name="tblProductScientificName" Relationship="dbUltraCoralModel.FK_tblBoxListProductDetail_tblProductScientificName" FromRole="tblBoxListProductDetail" ToRole="tblProductScientificName" />
+        </EntityType>
+        <Association Name="FK_tblBoxList_rcuid">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblBoxList" Role="tblBoxList" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerID" />
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="tblInvoice">
-              <PropertyRef Name="CustomerID" />
+            <Dependent Role="tblBoxList">
+              <PropertyRef Name="rcuid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblSaleOrder_tblCustomer">
-          <End Type="dbUltraCoralModel.tblCustomer" Role="tblCustomer" Multiplicity="1" />
-          <End Type="dbUltraCoralModel.tblSaleOrder" Role="tblSaleOrder" Multiplicity="*" />
+        <Association Name="FK_tblBoxList_reuid">
+          <End Type="dbUltraCoralModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblBoxList" Role="tblBoxList" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblCustomer">
-              <PropertyRef Name="CustomerID" />
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
             </Principal>
-            <Dependent Role="tblSaleOrder">
-              <PropertyRef Name="CustomerID" />
+            <Dependent Role="tblBoxList">
+              <PropertyRef Name="reuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxList_tblSaleInvoice">
+          <End Type="dbUltraCoralModel.tblSaleInvoice" Role="tblSaleInvoice" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblBoxList" Role="tblBoxList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSaleInvoice">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Principal>
+            <Dependent Role="tblBoxList">
+              <PropertyRef Name="SaleInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListBoxDetail_tblBoxList">
+          <End Type="dbUltraCoralModel.tblBoxList" Role="tblBoxList" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblBoxListBoxDetail" Role="tblBoxListBoxDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBoxList">
+              <PropertyRef Name="BoxListID" />
+            </Principal>
+            <Dependent Role="tblBoxListBoxDetail">
+              <PropertyRef Name="BoxListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListProductDetail_tblBoxListProductDetail">
+          <End Type="dbUltraCoralModel.tblBoxList" Role="tblBoxList" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblBoxListProductDetail" Role="tblBoxListProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBoxList">
+              <PropertyRef Name="BoxListID" />
+            </Principal>
+            <Dependent Role="tblBoxListProductDetail">
+              <PropertyRef Name="BoxListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListProductDetail_tblBoxListBoxDetail">
+          <End Type="dbUltraCoralModel.tblBoxListBoxDetail" Role="tblBoxListBoxDetail" Multiplicity="0..1" />
+          <End Type="dbUltraCoralModel.tblBoxListProductDetail" Role="tblBoxListProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBoxListBoxDetail">
+              <PropertyRef Name="BoxListBoxDetailID" />
+            </Principal>
+            <Dependent Role="tblBoxListProductDetail">
+              <PropertyRef Name="BoxListBoxDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBoxListProductDetail_tblProductScientificName">
+          <End Type="dbUltraCoralModel.tblProductScientificName" Role="tblProductScientificName" Multiplicity="1" />
+          <End Type="dbUltraCoralModel.tblBoxListProductDetail" Role="tblBoxListProductDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProductScientificName">
+              <PropertyRef Name="ProductScientificNameID" />
+            </Principal>
+            <Dependent Role="tblBoxListProductDetail">
+              <PropertyRef Name="ProductScientificNameID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1786,6 +2172,10 @@
           <EntitySetMapping Name="tblCompanies">
             <EntityTypeMapping TypeName="dbUltraCoralModel.tblCompany">
               <MappingFragment StoreEntitySet="tblCompany">
+                <ScalarProperty Name="noreplyOutgoingSMTPPort" ColumnName="noreplyOutgoingSMTPPort" />
+                <ScalarProperty Name="noreplyOutgoingSMTPServerName" ColumnName="noreplyOutgoingSMTPServerName" />
+                <ScalarProperty Name="noreplyEmailIDPassword" ColumnName="noreplyEmailIDPassword" />
+                <ScalarProperty Name="noreplyEmailID" ColumnName="noreplyEmailID" />
                 <ScalarProperty Name="reuid" ColumnName="reuid" />
                 <ScalarProperty Name="redt" ColumnName="redt" />
                 <ScalarProperty Name="rcuid" ColumnName="rcuid" />
@@ -1799,47 +2189,6 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblInvoices">
-            <EntityTypeMapping TypeName="dbUltraCoralModel.tblInvoice">
-              <MappingFragment StoreEntitySet="tblInvoice">
-                <ScalarProperty Name="reuid" ColumnName="reuid" />
-                <ScalarProperty Name="redt" ColumnName="redt" />
-                <ScalarProperty Name="rcuid" ColumnName="rcuid" />
-                <ScalarProperty Name="rcdt" ColumnName="rcdt" />
-                <ScalarProperty Name="TotalPayableAmt" ColumnName="TotalPayableAmt" />
-                <ScalarProperty Name="PreviousCredit" ColumnName="PreviousCredit" />
-                <ScalarProperty Name="TotalFreight" ColumnName="TotalFreight" />
-                <ScalarProperty Name="TTFee" ColumnName="TTFee" />
-                <ScalarProperty Name="IntFreightCharges" ColumnName="IntFreightCharges" />
-                <ScalarProperty Name="BoxCharges" ColumnName="BoxCharges" />
-                <ScalarProperty Name="DomesticFreightCharges" ColumnName="DomesticFreightCharges" />
-                <ScalarProperty Name="TotalGAmt" ColumnName="TotalGAmt" />
-                <ScalarProperty Name="TotalQuan" ColumnName="TotalQuan" />
-                <ScalarProperty Name="FreightFlight2" ColumnName="FreightFlight2" />
-                <ScalarProperty Name="FreightFlight1" ColumnName="FreightFlight1" />
-                <ScalarProperty Name="FreightAWBNo" ColumnName="FreightAWBNo" />
-                <ScalarProperty Name="EstDelDate" ColumnName="EstDelDate" />
-                <ScalarProperty Name="AirportDestCity" ColumnName="AirportDestCity" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="SaleOrderID" ColumnName="SaleOrderID" />
-                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblInvoiceProductDetails">
-            <EntityTypeMapping TypeName="dbUltraCoralModel.tblInvoiceProductDetail">
-              <MappingFragment StoreEntitySet="tblInvoiceProductDetail">
-                <ScalarProperty Name="Amt" ColumnName="Amt" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="Quan" ColumnName="Quan" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="InvoiceProductDetailID" ColumnName="InvoiceProductDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1909,21 +2258,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblProductSizes">
-            <EntityTypeMapping TypeName="dbUltraCoralModel.tblProductSize">
-              <MappingFragment StoreEntitySet="tblProductSize">
+          <EntitySetMapping Name="tblSaleInvoiceProductDetails">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblSaleInvoiceProductDetail">
+              <MappingFragment StoreEntitySet="tblSaleInvoiceProductDetail">
                 <ScalarProperty Name="reuid" ColumnName="reuid" />
                 <ScalarProperty Name="redt" ColumnName="redt" />
                 <ScalarProperty Name="rcuid" ColumnName="rcuid" />
                 <ScalarProperty Name="rcdt" ColumnName="rcdt" />
-                <ScalarProperty Name="ProductSizeName" ColumnName="ProductSizeName" />
-                <ScalarProperty Name="ProductSizeID" ColumnName="ProductSizeID" />
+                <ScalarProperty Name="Amt" ColumnName="Amt" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Quan" ColumnName="Quan" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="SaleInvoiceID" ColumnName="SaleInvoiceID" />
+                <ScalarProperty Name="SaleInvoiceProductDetailID" ColumnName="SaleInvoiceProductDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblSaleOrders">
             <EntityTypeMapping TypeName="dbUltraCoralModel.tblSaleOrder">
               <MappingFragment StoreEntitySet="tblSaleOrder">
+                <ScalarProperty Name="SaleInvoiceID" ColumnName="SaleInvoiceID" />
                 <ScalarProperty Name="reuid" ColumnName="reuid" />
                 <ScalarProperty Name="redt" ColumnName="redt" />
                 <ScalarProperty Name="rcuid" ColumnName="rcuid" />
@@ -1931,7 +2285,15 @@
                 <ScalarProperty Name="TotalAmt" ColumnName="TotalAmt" />
                 <ScalarProperty Name="TotalQuan" ColumnName="TotalQuan" />
                 <ScalarProperty Name="EstDelDate" ColumnName="EstDelDate" />
-                <ScalarProperty Name="AirportDest" ColumnName="AirportDest" />
+                <ScalarProperty Name="AirportDestCity" ColumnName="AirportDestCity" />
+                <ScalarProperty Name="IntPhoneNo" ColumnName="IntPhoneNo" />
+                <ScalarProperty Name="EmailContact" ColumnName="EmailContact" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="SONo" ColumnName="SONo" />
                 <ScalarProperty Name="SODate" ColumnName="SODate" />
@@ -1942,7 +2304,7 @@
           <EntitySetMapping Name="tblSaleOrderProductDetails">
             <EntityTypeMapping TypeName="dbUltraCoralModel.tblSaleOrderProductDetail">
               <MappingFragment StoreEntitySet="tblSaleOrderProductDetail">
-                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amt" ColumnName="Amt" />
                 <ScalarProperty Name="Quan" ColumnName="Quan" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -1951,19 +2313,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUsers">
-            <EntityTypeMapping TypeName="dbUltraCoralModel.tblUser">
-              <MappingFragment StoreEntitySet="tblUser">
-                <ScalarProperty Name="reuid" ColumnName="reuid" />
-                <ScalarProperty Name="redt" ColumnName="redt" />
-                <ScalarProperty Name="rcuid" ColumnName="rcuid" />
-                <ScalarProperty Name="rcdt" ColumnName="rcdt" />
-                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <EntitySetMapping Name="tblUpdateInventoryLogs">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblUpdateInventoryLog">
+              <MappingFragment StoreEntitySet="tblUpdateInventoryLog">
+                <ScalarProperty Name="LogDT" ColumnName="LogDT" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Quan" ColumnName="Quan" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UpdateInventoryLogID" ColumnName="UpdateInventoryLogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1984,14 +2341,87 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUpdateInventoryLogs">
-            <EntityTypeMapping TypeName="dbUltraCoralModel.tblUpdateInventoryLog">
-              <MappingFragment StoreEntitySet="tblUpdateInventoryLog">
-                <ScalarProperty Name="LogDT" ColumnName="LogDT" />
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="IsEMailVerified" ColumnName="IsEMailVerified" />
+                <ScalarProperty Name="AirportDestCity" ColumnName="AirportDestCity" />
+                <ScalarProperty Name="IntPhoneNo" ColumnName="IntPhoneNo" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="reuid" ColumnName="reuid" />
+                <ScalarProperty Name="redt" ColumnName="redt" />
+                <ScalarProperty Name="rcuid" ColumnName="rcuid" />
+                <ScalarProperty Name="rcdt" ColumnName="rcdt" />
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Quan" ColumnName="Quan" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="UpdateInventoryLogID" ColumnName="UpdateInventoryLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSaleInvoices">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblSaleInvoice">
+              <MappingFragment StoreEntitySet="tblSaleInvoice">
+                <ScalarProperty Name="reuid" ColumnName="reuid" />
+                <ScalarProperty Name="redt" ColumnName="redt" />
+                <ScalarProperty Name="rcuid" ColumnName="rcuid" />
+                <ScalarProperty Name="rcdt" ColumnName="rcdt" />
+                <ScalarProperty Name="TotalPayableAmt" ColumnName="TotalPayableAmt" />
+                <ScalarProperty Name="PreviousCredit" ColumnName="PreviousCredit" />
+                <ScalarProperty Name="TotalFreight" ColumnName="TotalFreight" />
+                <ScalarProperty Name="TTFee" ColumnName="TTFee" />
+                <ScalarProperty Name="IntFreightCharges" ColumnName="IntFreightCharges" />
+                <ScalarProperty Name="DomesticFreightCharges" ColumnName="DomesticFreightCharges" />
+                <ScalarProperty Name="BoxCharges" ColumnName="BoxCharges" />
+                <ScalarProperty Name="EstBoxes" ColumnName="EstBoxes" />
+                <ScalarProperty Name="TotalGAmt" ColumnName="TotalGAmt" />
+                <ScalarProperty Name="TotalQuan" ColumnName="TotalQuan" />
+                <ScalarProperty Name="InternationalFlight" ColumnName="InternationalFlight" />
+                <ScalarProperty Name="DomesticFlight" ColumnName="DomesticFlight" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+                <ScalarProperty Name="AirportDestCity" ColumnName="AirportDestCity" />
+                <ScalarProperty Name="EmailContact" ColumnName="EmailContact" />
+                <ScalarProperty Name="IntPhoneNo" ColumnName="IntPhoneNo" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="SaleInvoiceStatusID" ColumnName="SaleInvoiceStatusID" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="SaleInvoiceID" ColumnName="SaleInvoiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSaleInvoiceStatus">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblSaleInvoiceStatu">
+              <MappingFragment StoreEntitySet="tblSaleInvoiceStatus">
+                <ScalarProperty Name="SaleInvoiceStatusName" ColumnName="SaleInvoiceStatusName" />
+                <ScalarProperty Name="SaleInvoiceStatusID" ColumnName="SaleInvoiceStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProductSizes">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblProductSize">
+              <MappingFragment StoreEntitySet="tblProductSize">
+                <ScalarProperty Name="reuid" ColumnName="reuid" />
+                <ScalarProperty Name="redt" ColumnName="redt" />
+                <ScalarProperty Name="rcuid" ColumnName="rcuid" />
+                <ScalarProperty Name="rcdt" ColumnName="rcdt" />
+                <ScalarProperty Name="QuanReq" ColumnName="QuanReq" />
+                <ScalarProperty Name="ProductSizeName" ColumnName="ProductSizeName" />
+                <ScalarProperty Name="ProductSizeID" ColumnName="ProductSizeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2016,23 +2446,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblCustomers">
-            <EntityTypeMapping TypeName="dbUltraCoralModel.tblCustomer">
-              <MappingFragment StoreEntitySet="tblCustomer">
+          <EntitySetMapping Name="tblBoxLists">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblBoxList">
+              <MappingFragment StoreEntitySet="tblBoxList">
                 <ScalarProperty Name="reuid" ColumnName="reuid" />
                 <ScalarProperty Name="redt" ColumnName="redt" />
                 <ScalarProperty Name="rcuid" ColumnName="rcuid" />
                 <ScalarProperty Name="rcdt" ColumnName="rcdt" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="AirportDestCity" ColumnName="AirportDestCity" />
-                <ScalarProperty Name="IntPhoneNo" ColumnName="IntPhoneNo" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="EMailID" ColumnName="EMailID" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="SaleInvoiceID" ColumnName="SaleInvoiceID" />
+                <ScalarProperty Name="BoxListID" ColumnName="BoxListID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBoxListBoxDetails">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblBoxListBoxDetail">
+              <MappingFragment StoreEntitySet="tblBoxListBoxDetail">
+                <ScalarProperty Name="TotalQuan" ColumnName="TotalQuan" />
+                <ScalarProperty Name="BoxNo" ColumnName="BoxNo" />
+                <ScalarProperty Name="BoxListID" ColumnName="BoxListID" />
+                <ScalarProperty Name="BoxListBoxDetailID" ColumnName="BoxListBoxDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBoxListProductDetails">
+            <EntityTypeMapping TypeName="dbUltraCoralModel.tblBoxListProductDetail">
+              <MappingFragment StoreEntitySet="tblBoxListProductDetail">
+                <ScalarProperty Name="Quan" ColumnName="Quan" />
+                <ScalarProperty Name="ProductScientificNameID" ColumnName="ProductScientificNameID" />
+                <ScalarProperty Name="BoxListBoxDetailID" ColumnName="BoxListBoxDetailID" />
+                <ScalarProperty Name="BoxListID" ColumnName="BoxListID" />
+                <ScalarProperty Name="BoxListProductDetailID" ColumnName="BoxListProductDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

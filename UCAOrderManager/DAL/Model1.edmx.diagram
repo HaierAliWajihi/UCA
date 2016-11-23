@@ -4,27 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4521230a31e64bad88efe5df92ac528d" Name="Diagram1" ZoomLevel="95">
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblCompany" Width="1.5" PointX="5.25" PointY="20.875" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblInvoice" Width="1.5" PointX="8.25" PointY="20" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblInvoiceProductDetail" Width="1.5" PointX="10.5" PointY="26.875" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductCommonName" Width="1.5" PointX="5.25" PointY="47.375" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductCultivationType" Width="1.5" PointX="5.25" PointY="32.375" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductOpeningStock" Width="1.5" PointX="12.75" PointY="26.25" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductRate" Width="1.5" PointX="9.75" PointY="30.25" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductScientificName" Width="4.625" PointX="5" PointY="16.625" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductSize" Width="1.5" PointX="5.25" PointY="43.875" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblSaleOrder" Width="1.5" PointX="5.25" PointY="26" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblSaleOrderProductDetail" Width="1.5" PointX="12.75" PointY="30.875" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblUser" Width="1.5" PointX="3" PointY="19.375" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblUserRole" Width="1.5" PointX="0.75" PointY="22.375" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblUsersLoginLog" Width="1.5" PointX="5.25" PointY="14.625" />
+      <Diagram DiagramId="38705d5772944995a37de183694959d3" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblCompany" Width="1.5" PointX="5.25" PointY="45.625" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductCommonName" Width="1.5" PointX="5.25" PointY="29.375" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductCultivationType" Width="1.5" PointX="5.25" PointY="33.25" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductOpeningStock" Width="1.5" PointX="12.75" PointY="27.375" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductRate" Width="1.5" PointX="12.75" PointY="23.5" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductScientificName" Width="1.5" PointX="5.25" PointY="25.625" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblSaleInvoiceProductDetail" Width="1.5" PointX="10.5" PointY="29.875" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblSaleOrder" Width="1.5" PointX="10.5" PointY="22.625" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblSaleOrderProductDetail" Width="1.5" PointX="12.75" PointY="31.75" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblUpdateInventoryLog" Width="1.5" PointX="15.75" PointY="27.875" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblUserRole" Width="1.5" PointX="0.75" PointY="24.875" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblUsersLoginLog" Width="1.5" PointX="5.25" PointY="43.125" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblSaleOrder" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblUser" Width="1.5" PointX="3" PointY="20.75" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblCompany_tblUser" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblCompany_tblUser1" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblInvoice_rcuid" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblInvoice_reuid" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblInvoice_tblSaleOrder" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblInvoice" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductCommonName_rcuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductCommonName_reuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductOpeningStock_rcuid" />
@@ -33,19 +29,26 @@
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductRate_reuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductScientificName_rcuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductScientificName_reuid" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblProductSize_rcuid" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblProductSize_tblUser" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrder_rcuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrder_reuid" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblSaleOrder" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrder_tblUser" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblUser_rcuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblUser_reuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblUser_tblUserRole" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblUsersLoginLog_tblUser" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblUpdateInventoryLog" Width="1.5" PointX="10.75" PointY="22.75" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tbIUpdateInventoryLog_tblUser" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblProduct" Width="1.5" PointX="10.375" PointY="34.375" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblInvoiceProductDetail_tblProduct" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblSaleInvoice" Width="1.5" PointX="8.25" PointY="21.5" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblSaleInvoiceStatu" Width="1.5" PointX="6" PointY="22.875" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleInvoice_rcuid" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleInvoice_reuid" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleInvoice_tblSaleInvoiceStatus" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleInvoice_tblUser" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblInvoice" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrder_tblSaleInvoice" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblProductSize" Width="1.5" PointX="5.25" PointY="18.25" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblProductSize_rcuid" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblProductSize_tblUser" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblProduct" Width="1.5" PointX="7.5" PointY="30.875" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblIUpdateInventoryLog_tblProduct" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProduct_rcuid" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProduct_reuid" />
@@ -55,11 +58,19 @@
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProduct_tblProductSize" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductOpeningStock_tblProduct" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblProductRate_tblProduct" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleInvoiceProductDetail_tblProduct" />
         <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrderProductDetail_tblProduct" />
-        <EntityTypeShape EntityType="dbUltraCoralModel.tblCustomer" Width="1.5" PointX="0.75" PointY="25.125" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblInvoice_tblCustomer" />
-        <AssociationConnector Association="dbUltraCoralModel.FK_tblSaleOrder_tblCustomer" />
-        </Diagram>
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblBoxList" Width="2" PointX="10.25" PointY="16.625" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblBoxListBoxDetail" Width="1.5" PointX="15.75" PointY="19.75" />
+        <EntityTypeShape EntityType="dbUltraCoralModel.tblBoxListProductDetail" Width="1.5" PointX="18" PointY="22.75" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblBoxList_rcuid" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblBoxList_reuid" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblBoxList_tblSaleInvoice" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblBoxListBoxDetail_tblBoxList" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListProductDetail" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblBoxListProductDetail_tblBoxListBoxDetail" />
+        <AssociationConnector Association="dbUltraCoralModel.FK_tblBoxListProductDetail_tblProductScientificName" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

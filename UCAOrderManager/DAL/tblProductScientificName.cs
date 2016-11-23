@@ -17,6 +17,7 @@ namespace UCAOrderManager.DAL
         public tblProductScientificName()
         {
             this.tblProducts = new HashSet<tblProduct>();
+            this.tblBoxListProductDetails = new HashSet<tblBoxListProductDetail>();
         }
     
         public int ProductScientificNameID { get; set; }
@@ -30,5 +31,6 @@ namespace UCAOrderManager.DAL
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
         public virtual ICollection<tblProduct> tblProducts { get; set; }
+        public virtual ICollection<tblBoxListProductDetail> tblBoxListProductDetails { get; set; }
     }
 }

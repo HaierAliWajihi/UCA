@@ -1,10 +1,39 @@
 ﻿@model UCAOrderManager.Models.Customer.CustomerViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Customer Registration";
 }
 
-<h2>@(Model == null || Model.CustomerID == 0? "Create" : "Edit")</h2>
+<script type="text/javascript">
+    function CheckEMailExists()
+    {
+        var email = document.getElementById("txtEMailID").value;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("IsEmailIDExists", "Customer")?EmailID=' + email,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result.Response == "True") {
+
+                    var validator = $("form").validate();
+                    validator.showErrors({ EMailID: "Entered email id alerady registered. Please login if you already have account." });
+                }
+            },
+            //error: function (result) {
+            //    alert('Error occured ' + result.responseText);
+            //}
+        });
+    }
+
+    function RemoveEmailError()
+    {
+        var validator = $("form").validate();
+        validator.showErrors({ EMailID: null});
+    }
+</script>
+
+<h2>@(Model == null || Model.UserID == 0? "Registration" : "Edit")</h2>
 
 @using (Html.BeginForm("Create", "Customer")) 
 {
@@ -15,16 +44,24 @@
         <hr />
         @Html.ValidationSummary(true)
 
-        @if (Model != null && Model.CustomerID != 0)
+        @if (Model != null && Model.UserID != 0)
         {
-            @Html.HiddenFor(r=> r.CustomerID)
+            @Html.HiddenFor(r=> r.UserID)
         }
         
         <div class="form-group">
             @Html.LabelFor(model => model.EMailID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.EMailID, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EMailID)
+                @Html.TextBoxFor(model => model.EMailID, new { @id = "txtEMailID", @class = "form-control", @OnFocus = "RemoveEmailError()", @OnBlur = "CheckEMailExists()" })
+                @Html.ValidationMessageFor(model => model.EMailID, null, new { @id = "vmEMailID"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password)
             </div>
         </div>
 
@@ -57,6 +94,14 @@
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.City, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Postcode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Postcode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Postcode)
             </div>
         </div>
 

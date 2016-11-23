@@ -15,6 +15,7 @@ namespace UCAOrderManager.DAL.Product
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
                 return (from r in db.tblProductCultivationTypes
+                        orderby r.ProductCultivationTypeName
                         select new ProductCultivationTypeViewModel()
                         {
                             ProductCultivationTypeID = r.ProductCultivationTypeID,
@@ -192,6 +193,7 @@ namespace UCAOrderManager.DAL.Product
             using (dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
                 var list = (from r in db.tblProductCultivationTypes
+                            orderby r.ProductCultivationTypeName
                         select new ProductCultivationTypeSelectListViewModel()
                         {
                             ProductCultivationTypeID = r.ProductCultivationTypeID,

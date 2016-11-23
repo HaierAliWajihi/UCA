@@ -107,7 +107,7 @@ namespace UCAOrderManager.DAL.Users
                 {
                     UserID = User.UserID,
                     EMailID = User.EmailID,
-                    FullName = User.FullName,
+                    FullName = User.FullName ?? User.ContactName ?? User.BusinessName ?? "NoName",
                     IsApproved = User.IsApproved,
                     Role = (eUserRoleID)User.UserRoleID
                 };
@@ -161,7 +161,7 @@ namespace UCAOrderManager.DAL.Users
         {
             using(dbUltraCoralEntities db = new dbUltraCoralEntities())
             {
-                return db.tblUsers.Where(r => !r.IsApproved).Select<tblUser, Models.Users.UserApprovalViewModel>(r =>
+                return db.tblUsers.Where(r => !(r.IsApproved ?? false)).Select<tblUser, Models.Users.UserApprovalViewModel>(r =>
                     new Models.Users.UserApprovalViewModel()
                     {
                         UserID = r.UserID,
@@ -226,5 +226,19 @@ namespace UCAOrderManager.DAL.Users
             return db.tblUsers.FirstOrDefault(r => r.UserID != ID && r.EmailID == Value) != null;
         }
 
+        public List<Models.Users.UserAdminListViewModel> GetAdminUsers()
+        {
+            using (dbUltraCoralEntities db = new dbUltraCoralEntities())
+            {
+                int AdminRoleID = (int)eUserRoleID.Admin;
+                return db.tblUsers.Where(r => r.UserRoleID == AdminRoleID && (r.IsApproved ?? false)).Select<tblUser, Models.Users.UserAdminListViewModel>(r =>
+                    new Models.Users.UserAdminListViewModel()
+                    {
+                        UserID = r.UserID,
+                        FullName = r.FullName,
+                        EMailID = r.EmailID
+                    }).ToList();
+            }
+        }
     }
 }

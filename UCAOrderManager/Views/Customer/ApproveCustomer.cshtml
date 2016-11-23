@@ -1,0 +1,119 @@
+﻿@model UCAOrderManager.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Customer Approval Confirmation";
+}
+
+<h2>Customer account approval</h2>
+
+<div>
+	<hr />
+        @if (Model.IsApproved != null)
+        {
+            if (Model.IsApproved.Value) 
+            {
+            <p>
+                Customer has been approved succefully to login and place / view order and stock details. Here is the detailes of customer. Please check.
+            </p>
+            }
+            else
+            {
+            <p>
+                Customer registration has been rejected. Please check the following details about customer.
+            </p>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm(new { UserID = Model.UserID, Approved = true }))
+            {
+            <input type="submit" value="Approve" class="btn btn-default" />
+            }
+            using (Html.BeginForm(new { UserID = Model.UserID, Approved = false }))
+            {
+            <input type="submit" value="Reject" class="btn btn-default" />
+            }
+        }
+
+    <dl class="dl-horizontal">
+        <dt>
+            Registered Email ID
+        </dt>
+        
+        <dd>
+            @Html.DisplayFor(model => model.EMailID);
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postcode)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IntPhoneNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IntPhoneNo)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AirportDestCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AirportDestCity)
+        </dd>
+    </dl>
+</div>

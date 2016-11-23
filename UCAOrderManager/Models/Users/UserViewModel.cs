@@ -24,7 +24,7 @@ namespace UCAOrderManager.Models.Users
         public string EMailID { get; set; }
 
         [DisplayName("Password")]
-        [MaxLength(50)]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
         [Required(ErrorMessage="Please enter password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -45,13 +45,14 @@ namespace UCAOrderManager.Models.Users
         public eUserRoleID Role { get; set; }
 
         [Browsable(false)]
-        public bool IsApproved { get; set; }
+        public bool? IsApproved { get; set; }
     }
 
     public enum eUserRoleID
     {
         Admin = 1,
-        User = 2
+        User = 2,
+        Customer = 3
     }
 
     public class UserLoginViewModel
@@ -91,6 +92,18 @@ namespace UCAOrderManager.Models.Users
     }
 
     public class UserApprovalViewModel
+    {
+        [Browsable(false)]
+        public int UserID { get; set; }
+
+        [DisplayName("Full Name")]
+        public string FullName { get; set; }
+
+        [DisplayName("Email id")]
+        public string EMailID { get; set; }
+    }
+
+    public class UserAdminListViewModel
     {
         [Browsable(false)]
         public int UserID { get; set; }

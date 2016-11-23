@@ -91,5 +91,8 @@ namespace UCAOrderManager.Models.Product
         
         [DisplayName("Stock")]
         public decimal CurrentStock { get; set; }
+
+        [Browsable(false)]
+        public bool IsQtyReq { get; set; }
     }
 }

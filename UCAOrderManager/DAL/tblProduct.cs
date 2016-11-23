@@ -16,10 +16,10 @@ namespace UCAOrderManager.DAL
     {
         public tblProduct()
         {
-            this.tblInvoiceProductDetails = new HashSet<tblInvoiceProductDetail>();
             this.tblUpdateInventoryLogs = new HashSet<tblUpdateInventoryLog>();
             this.tblProductOpeningStocks = new HashSet<tblProductOpeningStock>();
             this.tblProductRates = new HashSet<tblProductRate>();
+            this.tblSaleInvoiceProductDetails = new HashSet<tblSaleInvoiceProductDetail>();
             this.tblSaleOrderProductDetails = new HashSet<tblSaleOrderProductDetail>();
         }
     
@@ -39,7 +39,6 @@ namespace UCAOrderManager.DAL
         public Nullable<System.DateTime> redt { get; set; }
         public Nullable<int> reuid { get; set; }
     
-        public virtual ICollection<tblInvoiceProductDetail> tblInvoiceProductDetails { get; set; }
         public virtual ICollection<tblUpdateInventoryLog> tblUpdateInventoryLogs { get; set; }
         public virtual tblUser tblUser { get; set; }
         public virtual tblUser tblUser1 { get; set; }
@@ -49,6 +48,7 @@ namespace UCAOrderManager.DAL
         public virtual tblProductSize tblProductSize { get; set; }
         public virtual ICollection<tblProductOpeningStock> tblProductOpeningStocks { get; set; }
         public virtual ICollection<tblProductRate> tblProductRates { get; set; }
+        public virtual ICollection<tblSaleInvoiceProductDetail> tblSaleInvoiceProductDetails { get; set; }
         public virtual ICollection<tblSaleOrderProductDetail> tblSaleOrderProductDetails { get; set; }
     }
 }
