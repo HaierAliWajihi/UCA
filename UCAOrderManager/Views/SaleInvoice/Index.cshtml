@@ -1,0 +1,91 @@
+﻿@model IEnumerable<UCAOrderManager.Models.SaleInvoice.SaleInvoiceListViewModel>
+
+@{
+    ViewBag.Title = "Sale";
+}
+
+<h2>Sale Invoice</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InvoiceNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SaleInvoiceStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShippingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArrivalDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DomesticFlight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InternationalFlight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstBoxes)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.InvoiceDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.InvoiceNo)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.BusinessName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.SaleInvoiceStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.ShippingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.ArrivalDate)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.DomesticFlight)<br />
+            @Html.ActionLink("Box List", "Create", "BoxList", new { id = item.SaleInvoiceID }, new { target = "_blank" })
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.InternationalFlight)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.TotalQty)<br />
+            @Html.ActionLink("SER Label", "SaleInvoicePrintSERLabel", new { id = item.SaleInvoiceID }, new { target = "_blank" })
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.EstBoxes)
+        </td>
+        <td><nobr>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SaleInvoiceID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.SaleInvoiceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SaleInvoiceID }) <br>
+            @Html.ActionLink("Full Invoice", "SaleInvoicePrint", new { id = item.SaleInvoiceID }, new { target = "_blank" }) |
+            @Html.ActionLink("Shipping", "SaleInvoicePrintShipping", new { id = item.SaleInvoiceID }, new { target = "_blank" })
+        </nobr>
+        </td>
+    </tr>
+}
+</table>
